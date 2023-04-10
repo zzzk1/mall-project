@@ -8,4 +8,4 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: com.example.mallproject.pojo.User
-  mapper-locations: classpath*:mapper/**/*Mapper.xm
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
