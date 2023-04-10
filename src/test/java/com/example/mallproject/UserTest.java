@@ -30,6 +30,12 @@ public class UserTest {
     }
 
     @Test
+    void getById() {
+        User user;
+        user = userService.getUserById(1);
+    }
+
+    @Test
     void addUser() {
         User user = new User();
         user.setName("add");
@@ -44,11 +50,24 @@ public class UserTest {
     }
 
     @Test
+    void deleteById() {
+        userService.deleteUserNyId(1);
+    }
+
+    @Test
     void updateByName() {
         String name = "add";
         User user = new User();
         user.setName("update");
         user.setPassword("update");
         userService.updateUserByName(name, user);
+    }
+
+    @Test
+    void updateById() {
+        User user = new User();
+        user.setName("update");
+        user.setPassword("update");
+        userService.updateUserById(1, user);
     }
 }

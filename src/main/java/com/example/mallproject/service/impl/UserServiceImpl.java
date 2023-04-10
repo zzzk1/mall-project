@@ -20,6 +20,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserById(int id) {
+        return userMapper.selectById(id);
+    }
+
+    @Override
     public User getUserByName(String name) {
         QueryWrapper<User> query = new QueryWrapper<>();
         query.eq("name", name);
@@ -41,9 +46,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int deleteUserNyId(int id) {
+        return userMapper.deleteById(id);
+    }
+
+    @Override
     public int updateUserByName(String name, User user) {
         QueryWrapper<User> query = new QueryWrapper<>();
         query.eq("name", name);
+        return userMapper.update(user, query);
+    }
+
+    @Override
+    public int updateUserById(int id, User user) {
+        QueryWrapper<User> query = new QueryWrapper<>();
+        query.eq("id", id);
         return userMapper.update(user, query);
     }
 }
