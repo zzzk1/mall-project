@@ -1,12 +1,11 @@
 package com.example.mallproject;
 
-import com.example.mallproject.pojo.User;
+import com.example.mallproject.pojo.user;
 import com.example.mallproject.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.sql.Time;
 import java.util.List;
 
 @SpringBootTest
@@ -16,58 +15,58 @@ public class UserTest {
 
     @Test
     void getAll() {
-        List<User> users = userService.getAll();
-        for (User user : users) {
+        List<user> users = userService.getAll();
+        for (com.example.mallproject.pojo.user user : users) {
             System.out.println(user);
         }
     }
 
     @Test
     void getByName() {
-        User user;
-        user = userService.getUserByName("add");
+        user user;
+        user = userService.getByName("add");
         System.out.println(user);
     }
 
     @Test
     void getById() {
-        User user;
-        user = userService.getUserById(1);
+        user user;
+        user = userService.getById(1);
     }
 
     @Test
     void addUser() {
-        User user = new User();
+        user user = new user();
         user.setName("add");
         user.setPassword("add");
-        userService.addUser(user);
+        userService.add(user);
     }
 
     @Test
     void deleteByName() {
         String name = "add";
-        userService.deleteUserByName(name);
+        userService.deleteByName(name);
     }
 
     @Test
     void deleteById() {
-        userService.deleteUserNyId(1);
+        userService.deleteNyId(1);
     }
 
     @Test
     void updateByName() {
         String name = "add";
-        User user = new User();
+        user user = new user();
         user.setName("update");
         user.setPassword("update");
-        userService.updateUserByName(name, user);
+        userService.updateByName(name, user);
     }
 
     @Test
     void updateById() {
-        User user = new User();
+        user user = new user();
         user.setName("update");
         user.setPassword("update");
-        userService.updateUserById(1, user);
+        userService.updateById(1, user);
     }
 }

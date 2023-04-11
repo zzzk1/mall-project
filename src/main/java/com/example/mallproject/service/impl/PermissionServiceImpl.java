@@ -20,41 +20,41 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public Permission getPermissionByName(String name) {
+    public Permission getByName(String name) {
         query.eq("name", name);
         return permissionMapper.selectOne(query);
     }
 
     @Override
-    public Permission getPermissionById(int id) {
+    public Permission getById(int id) {
         query.eq("id", id);
         return permissionMapper.selectOne(query);
     }
 
     @Override
-    public int addPermission(Permission permission) {
+    public int add(Permission permission) {
         return permissionMapper.insert(permission);
     }
 
     @Override
-    public int deletePermissionByName(String name) {
+    public int deleteByName(String name) {
         query.eq("name", name);
         return permissionMapper.delete(query);
     }
 
     @Override
-    public int deletePermissionNyId(int id) {
+    public int deleteById(int id) {
         return permissionMapper.deleteById(id);
     }
 
     @Override
-    public int updatePermissionByName(String name, Permission permission) {
+    public int updateByName(String name, Permission permission) {
         query.eq("name", name);
         return permissionMapper.update(permission, query);
     }
 
     @Override
-    public int updatePermissionById(int id, Permission permission) {
+    public int updateById(int id, Permission permission) {
         query.eq("id", id);
         return permissionMapper.update(permission, query);
     }

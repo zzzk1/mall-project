@@ -1,17 +1,16 @@
 package com.example.mallproject.service;
 
 import com.example.mallproject.pojo.Permission;
-import com.example.mallproject.pojo.User;
 
 import java.util.List;
 
 public interface PermissionService {
     List<Permission> getAll();
-    Permission getPermissionByName(String name);
-    Permission getPermissionById(int id);
-    int addPermission(Permission permission);
-    int deletePermissionByName(String name);
-    int deletePermissionNyId(int id);
-    int updatePermissionByName(String name, Permission permission);
-    int updatePermissionById(int id, Permission permission);
+    Permission getByName(String name);
+    Permission getById(int id);
+    int add(Permission permission);
+    int deleteByName(String name);
+    int deleteById(int id);
+    int updateByName(String name, Permission permission);
+    int updateById(int id, Permission permission);
 }

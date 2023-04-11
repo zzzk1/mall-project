@@ -2,7 +2,7 @@ package com.example.mallproject.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mallproject.mapper.UserMapper;
-import com.example.mallproject.pojo.User;
+import com.example.mallproject.pojo.user;
 import com.example.mallproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,52 +14,52 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public List<User> getAll() {
-        QueryWrapper<User> query = new QueryWrapper<User>();
+    public List<user> getAll() {
+        QueryWrapper<user> query = new QueryWrapper<user>();
         return userMapper.selectList(query);
     }
 
     @Override
-    public User getUserById(int id) {
+    public user getById(int id) {
         return userMapper.selectById(id);
     }
 
     @Override
-    public User getUserByName(String name) {
-        QueryWrapper<User> query = new QueryWrapper<>();
+    public user getByName(String name) {
+        QueryWrapper<user> query = new QueryWrapper<>();
         query.eq("name", name);
-        User user = new User();
+        user user = new user();
         user = userMapper.selectOne(query);
         return user;
     }
 
     @Override
-    public int addUser(User user) {
+    public int add(user user) {
         return userMapper.insert(user);
     }
 
     @Override
-    public int deleteUserByName(String name) {
-       QueryWrapper<User> query = new QueryWrapper<>();
+    public int deleteByName(String name) {
+       QueryWrapper<user> query = new QueryWrapper<>();
        query.eq("name", name);
        return userMapper.delete(query);
     }
 
     @Override
-    public int deleteUserNyId(int id) {
+    public int deleteNyId(int id) {
         return userMapper.deleteById(id);
     }
 
     @Override
-    public int updateUserByName(String name, User user) {
-        QueryWrapper<User> query = new QueryWrapper<>();
+    public int updateByName(String name, user user) {
+        QueryWrapper<com.example.mallproject.pojo.user> query = new QueryWrapper<>();
         query.eq("name", name);
         return userMapper.update(user, query);
     }
 
     @Override
-    public int updateUserById(int id, User user) {
-        QueryWrapper<User> query = new QueryWrapper<>();
+    public int updateById(int id, user user) {
+        QueryWrapper<com.example.mallproject.pojo.user> query = new QueryWrapper<>();
         query.eq("id", id);
         return userMapper.update(user, query);
     }

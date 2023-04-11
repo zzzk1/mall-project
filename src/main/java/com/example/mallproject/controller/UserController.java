@@ -1,10 +1,9 @@
 package com.example.mallproject.controller;
 
 import com.example.mallproject.common.api.Result;
-import com.example.mallproject.pojo.User;
+import com.example.mallproject.pojo.user;
 import com.example.mallproject.service.UserService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -14,47 +13,45 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    private UserService userService;
+    private UserService service;
 
-    @ApiOperation(value = "查询所有用户")
     @GetMapping
-    public Result<List<User>> getAll() {
-        return Result.Success(userService.getAll());
+    public Result<List<user>> getAll() {
+        return Result.Success(service.getAll());
     }
 
-    @ApiOperation(value = "查询用户")
     @GetMapping("{name}")
-    public Result<User> getUser(@PathVariable String name) {
-        return Result.Success(userService.getUserByName(name));
+    public Result<user> getUser(@PathVariable String name) {
+        return Result.Success(service.getByName(name));
     }
 
     @GetMapping("/id/{id}")
-    public Result<User> getUser(@PathVariable Integer id) {
-        return Result.Success( userService.getUserById(id));
+    public Result<user> getUser(@PathVariable Integer id) {
+        return Result.Success( service.getById(id));
     }
 
     @PostMapping
-    public Result<Integer> addUser(@RequestBody User user) {
-        return Result.Success(userService.addUser(user));
+    public Result<Integer> addUser(@RequestBody user user) {
+        return Result.Success(service.add(user));
     }
 
     @DeleteMapping("{name}")
     public Result<Integer> deleteUser(@PathVariable String name) {
-        return Result.Success(userService.deleteUserByName(name));
+        return Result.Success(service.deleteByName(name));
     }
 
     @DeleteMapping("/id/{id}")
     public Result<Integer> deleteUser(@PathVariable Integer id) {
-        return Result.Success(userService.deleteUserNyId(id));
+        return Result.Success(service.deleteNyId(id));
     }
 
     @PutMapping("{name}")
-    public Result<Integer> updateUser(@PathVariable String name, @RequestBody User user) {
-        return Result.Success(userService.updateUserByName(name, user));
+    public Result<Integer> updateUser(@PathVariable String name, @RequestBody user user) {
+        return Result.Success(service.updateByName(name, user));
     }
 
     @PutMapping("/id/{id}")
-    public Result<Integer> updateUser(@PathVariable Integer id, @RequestBody User user) {
-        return Result.Success(userService.updateUserById(id, user));
+    public Result<Integer> updateUser(@PathVariable Integer id, @RequestBody user user) {
+        return Result.Success(service.updateById(id, user));
     }
 }

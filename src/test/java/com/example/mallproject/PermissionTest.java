@@ -17,12 +17,12 @@ public class PermissionTest {
 
     @Test
     void getByName() {
-        System.out.println(service.getPermissionByName("name"));
+        System.out.println(service.getByName("name"));
     }
 
     @Test
     void getById() {
-        System.out.println(service.getPermissionById(1));
+        System.out.println(service.getById(1));
     }
 
     @Test
@@ -30,17 +30,17 @@ public class PermissionTest {
         Permission permission = new Permission();
         permission.setModule("mod");
         permission.setName("mod");
-        System.out.println(service.addPermission(permission));
+        System.out.println(service.add(permission));
     }
 
     @Test
     void deleteByName() {
-        System.out.println(service.deletePermissionByName("mod"));
+        System.out.println(service.deleteByName("mod"));
     }
 
     @Test
     void deleteById() {
-        System.out.println(service.deletePermissionNyId(1));
+        System.out.println(service.deleteById(1));
     }
 
     @Test
@@ -48,7 +48,7 @@ public class PermissionTest {
         Permission permission = new Permission();
         permission.setName("update");
         permission.setModule("update");
-        System.out.println(service.updatePermissionByName("mod", permission));
+        System.out.println(service.updateByName("mod", permission));
     }
 
     @Test
@@ -56,6 +56,6 @@ public class PermissionTest {
         Permission permission = new Permission();
         permission.setName("update");
         permission.setModule("update");
-        System.out.println(service.updatePermissionById(1, permission));
+        System.out.println(service.updateById(1, permission));
     }
 }
