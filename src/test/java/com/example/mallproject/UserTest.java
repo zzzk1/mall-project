@@ -1,6 +1,6 @@
 package com.example.mallproject;
 
-import com.example.mallproject.pojo.user;
+import com.example.mallproject.pojo.User;
 import com.example.mallproject.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,28 +15,28 @@ public class UserTest {
 
     @Test
     void getAll() {
-        List<user> users = userService.getAll();
-        for (com.example.mallproject.pojo.user user : users) {
+        List<User> Users = userService.getAll();
+        for (User user : Users) {
             System.out.println(user);
         }
     }
 
     @Test
     void getByName() {
-        user user;
+        User user;
         user = userService.getByName("add");
         System.out.println(user);
     }
 
     @Test
     void getById() {
-        user user;
+        User user;
         user = userService.getById(1);
     }
 
     @Test
     void addUser() {
-        user user = new user();
+        User user = new User();
         user.setName("add");
         user.setPassword("add");
         userService.add(user);
@@ -56,7 +56,7 @@ public class UserTest {
     @Test
     void updateByName() {
         String name = "add";
-        user user = new user();
+        User user = new User();
         user.setName("update");
         user.setPassword("update");
         userService.updateByName(name, user);
@@ -64,7 +64,7 @@ public class UserTest {
 
     @Test
     void updateById() {
-        user user = new user();
+        User user = new User();
         user.setName("update");
         user.setPassword("update");
         userService.updateById(1, user);

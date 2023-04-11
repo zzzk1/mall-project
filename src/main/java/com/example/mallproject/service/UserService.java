@@ -1,16 +1,16 @@
 package com.example.mallproject.service;
 
-import com.example.mallproject.pojo.user;
+import com.example.mallproject.pojo.User;
 
 import java.util.List;
 
 public interface UserService {
-    List<user> getAll();
-    user getById(int id);
-    user getByName(String name);
-    int add(user user);
+    List<User> getAll();
+    User getById(int id);
+    User getByName(String name);
+    int add(User user);
     int deleteByName(String name);
     int deleteById(int id);
-    int updateByName(String name, user user);
-    int updateById(int id, user user);
+    int updateByName(String name, User user);
+    int updateById(int id, User user);
 }

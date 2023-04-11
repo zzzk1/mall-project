@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @TableName("t_user")
-public class user extends BasePojo{
+public class User extends BasePojo{
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "id", dataType = "int", required = true)
     private int id;
