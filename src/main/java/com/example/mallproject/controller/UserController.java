@@ -3,22 +3,26 @@ package com.example.mallproject.controller;
 import com.example.mallproject.common.api.Result;
 import com.example.mallproject.pojo.User;
 import com.example.mallproject.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@Api(tags = "用户接口")
 @RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation(value = "查询所有用户")
     @GetMapping
     public Result<List<User>> getAll() {
         return Result.Success(userService.getAll());
     }
 
+    @ApiOperation(value = "查询用户")
     @GetMapping("{name}")
     public Result<User> getUser(@PathVariable String name) {
         return Result.Success(userService.getUserByName(name));
