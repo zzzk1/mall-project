@@ -23,4 +23,8 @@ public class Result<T> {
     public static<T> Result<T> Failed(T data) {
         return new Result<T>(ResultCode.FAILED.getCode(), ResultCode.FAILED.getMessage(), data);
     }
+
+    public static<T> Result<T> Failed(T data, String message) {
+        return new Result<T>(ResultCode.FAILED.getCode(), message, data);
+    }
 }

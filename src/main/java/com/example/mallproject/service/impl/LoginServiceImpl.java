@@ -17,27 +17,25 @@ public class LoginServiceImpl implements LoginService {
     private UserService userService;
 
     @Override
-    public Result<User> login(String name, String password) {
+    public Result<User> login(User user) {
         QueryWrapper<User> query = new QueryWrapper<>();
-        query.eq("name", name);
-        query.eq("password", password);
-        User user =  userMapper.selectOne(query);
-        if (user == null) {
-            return null;
+        query.eq("name", user.getName());
+        query.eq("password", user.getPassword());
+
+        if (userMapper.selectOne(query) == null) {
+            return Result.Failed(user, "用户不存在或密码错误.");
         } else {
             return Result.Success(user);
         }
     }
 
     @Override
-    public Result<User> register(String name, String password) {
-            User user = userService.getByName(name);
-            if (user != null) {
-                return Result.Failed(user);
-            }
-            user.setName(name);
-            user.setPassword(password);
-            userMapper.insert(user);
-            return Result.Success(user);
+    public Result<User> register(User user) {
+        if (userService.getByName(user.getName()) != null) {
+            return Result.Failed(user, "用户已存在.");
+        }
+
+        userMapper.insert(user);
+        return Result.Success(user);
     }
 }

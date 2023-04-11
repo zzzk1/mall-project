@@ -12,11 +12,10 @@ public class LoginTest {
 
     @Test
     void loginTest() {
-        System.out.println(service.login("put", "put"));
     }
 
     @Test
     void registerTest() {
-        System.out.println(service.register("admin", "admin"));
+
     }
 }
