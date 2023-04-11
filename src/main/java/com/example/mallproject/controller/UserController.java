@@ -42,7 +42,7 @@ public class UserController {
 
     @DeleteMapping("/id/{id}")
     public Result<Integer> deleteUser(@PathVariable Integer id) {
-        return Result.Success(service.deleteNyId(id));
+        return Result.Success(service.deleteById(id));
     }
 
     @PutMapping("{name}")

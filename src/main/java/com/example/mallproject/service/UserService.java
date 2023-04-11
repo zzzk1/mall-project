@@ -10,7 +10,7 @@ public interface UserService {
     user getByName(String name);
     int add(user user);
     int deleteByName(String name);
-    int deleteNyId(int id);
+    int deleteById(int id);
     int updateByName(String name, user user);
     int updateById(int id, user user);
 }

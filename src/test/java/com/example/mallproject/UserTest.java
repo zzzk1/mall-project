@@ -50,7 +50,7 @@ public class UserTest {
 
     @Test
     void deleteById() {
-        userService.deleteNyId(1);
+        userService.deleteById(1);
     }
 
     @Test
