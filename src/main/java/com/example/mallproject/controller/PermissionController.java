@@ -11,6 +11,7 @@ import java.util.List;
 
 @Api(tags = "功能接口")
 @RestController
+@RequestMapping("/permission")
 public class PermissionController {
     @Autowired
     private PermissionService service;
@@ -21,37 +22,37 @@ public class PermissionController {
     }
 
     @GetMapping("{name}")
-    public Result<Permission> getUser(@PathVariable String name) {
+    public Result<Permission> getPermission(@PathVariable String name) {
         return Result.Success(service.getByName(name));
     }
 
     @GetMapping("/id/{id}")
-    public Result<Permission> getUser(@PathVariable Integer id) {
+    public Result<Permission> getPermission(@PathVariable Integer id) {
         return Result.Success( service.getById(id));
     }
 
     @PostMapping
-    public Result<Integer> addUser(@RequestBody Permission permission) {
+    public Result<Integer> addPermission(@RequestBody Permission permission) {
         return Result.Success(service.add(permission));
     }
 
     @DeleteMapping("{name}")
-    public Result<Integer> deleteUser(@PathVariable String name) {
+    public Result<Integer> deletePermission(@PathVariable String name) {
         return Result.Success(service.deleteByName(name));
     }
 
     @DeleteMapping("/id/{id}")
-    public Result<Integer> deleteUser(@PathVariable Integer id) {
+    public Result<Integer> deletePermission(@PathVariable Integer id) {
         return Result.Success(service.deleteById(id));
     }
 
     @PutMapping("{name}")
-    public Result<Integer> updateUser(@PathVariable String name, @RequestBody Permission permission) {
+    public Result<Integer> updatePermission(@PathVariable String name, @RequestBody Permission permission) {
         return Result.Success(service.updateByName(name, permission));
     }
 
     @PutMapping("/id/{id}")
-    public Result<Integer> updateUser(@PathVariable Integer id, @RequestBody Permission permission) {
+    public Result<Integer> updatePermission(@PathVariable Integer id, @RequestBody Permission permission) {
         return Result.Success(service.updateById(id, permission));
     }
 }

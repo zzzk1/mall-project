@@ -17,12 +17,12 @@ public class PermissionTest {
 
     @Test
     void getByName() {
-        System.out.println(service.getByName("name"));
+        System.out.println(service.getByName("mod"));
     }
 
     @Test
     void getById() {
-        System.out.println(service.getById(1));
+        System.out.println(service.getById(2));
     }
 
     @Test

@@ -13,20 +13,23 @@ import java.util.List;
 public class PermissionServiceImpl implements PermissionService {
     @Autowired
     private PermissionMapper permissionMapper;
-    QueryWrapper<Permission> query = new QueryWrapper<>();
+
     @Override
     public List<Permission> getAll() {
+        QueryWrapper<Permission> query = new QueryWrapper<>();
         return permissionMapper.selectList(query);
     }
 
     @Override
     public Permission getByName(String name) {
+        QueryWrapper<Permission> query = new QueryWrapper<>();
         query.eq("name", name);
         return permissionMapper.selectOne(query);
     }
 
     @Override
     public Permission getById(int id) {
+        QueryWrapper<Permission> query = new QueryWrapper<>();
         query.eq("id", id);
         return permissionMapper.selectOne(query);
     }
@@ -38,6 +41,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public int deleteByName(String name) {
+        QueryWrapper<Permission> query = new QueryWrapper<>();
         query.eq("name", name);
         return permissionMapper.delete(query);
     }
@@ -49,12 +53,14 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public int updateByName(String name, Permission permission) {
+        QueryWrapper<Permission> query = new QueryWrapper<>();
         query.eq("name", name);
         return permissionMapper.update(permission, query);
     }
 
     @Override
     public int updateById(int id, Permission permission) {
+        QueryWrapper<Permission> query = new QueryWrapper<>();
         query.eq("id", id);
         return permissionMapper.update(permission, query);
     }
