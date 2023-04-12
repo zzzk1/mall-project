@@ -1,4 +1,4 @@
-package com.example.mallproject.pojo;
+package com.example.mallproject.pojo.DO;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;

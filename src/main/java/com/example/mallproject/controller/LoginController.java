@@ -1,7 +1,7 @@
 package com.example.mallproject.controller;
 
 import com.example.mallproject.common.api.Result;
-import com.example.mallproject.pojo.User;
+import com.example.mallproject.pojo.DO.User;
 import com.example.mallproject.service.LoginService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;

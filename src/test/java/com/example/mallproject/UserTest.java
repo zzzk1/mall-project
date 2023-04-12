@@ -1,6 +1,6 @@
 package com.example.mallproject;
 
-import com.example.mallproject.pojo.User;
+import com.example.mallproject.pojo.DO.User;
 import com.example.mallproject.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

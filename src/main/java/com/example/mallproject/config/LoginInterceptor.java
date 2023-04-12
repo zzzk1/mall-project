@@ -1,7 +1,6 @@
 package com.example.mallproject.config;
 
-import com.example.mallproject.common.api.Result;
-import com.example.mallproject.pojo.User;
+import com.example.mallproject.pojo.DO.User;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +29,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
         if (currentUser == null) {
-            // 抛异常，请先登录（还有一种方式，就是利用response直接write返回JSON，但不推荐）
+            // 抛异常，请先登录
             throw new Exception("未登录");
         }
         return currentUser;

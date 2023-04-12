@@ -3,7 +3,7 @@ package com.example.mallproject.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mallproject.common.api.Result;
 import com.example.mallproject.mapper.UserMapper;
-import com.example.mallproject.pojo.User;
+import com.example.mallproject.pojo.DO.User;
 import com.example.mallproject.service.LoginService;
 import com.example.mallproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
