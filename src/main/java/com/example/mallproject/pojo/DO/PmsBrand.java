@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @TableName("pms_brand")
-public class PmsBrand extends BasePojo {
+public class PmsBrand {
     @TableId(type = IdType.AUTO)
     private int id;
     private String name;
