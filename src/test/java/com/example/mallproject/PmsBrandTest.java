@@ -38,8 +38,8 @@ public class PmsBrandTest {
         PmsBrand pmsBrand = new PmsBrand();
         pmsBrand.setName("小米");
         pmsBrand.setDescription("小米");
-//        pmsBrand.setName("大米");
-//        pmsBrand.setDescription("大米");
+        pmsBrand.setName("大米");
+        pmsBrand.setDescription("大米");
         brandService.add(pmsBrand);
     }
 
