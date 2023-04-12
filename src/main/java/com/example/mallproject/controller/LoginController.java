@@ -19,9 +19,10 @@ import java.util.Objects;
 public class LoginController {
     @Autowired
     private LoginService service;
-
+    @Autowired
+    private HttpSession session;
     @PostMapping("/login")
-    public Result<User> login(HttpSession session,@RequestBody User user) {
+    public Result<User> login(@RequestBody User user) {
         Result<User> checkResult;
         checkResult = paramCheck(user);
         if (checkResult != null) {
