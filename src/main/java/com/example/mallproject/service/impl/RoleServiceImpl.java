@@ -2,8 +2,7 @@ package com.example.mallproject.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mallproject.mapper.RoleMapper;
-import com.example.mallproject.pojo.Role;
-import com.example.mallproject.pojo.user;
+import com.example.mallproject.pojo.DO.Role;
 import com.example.mallproject.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

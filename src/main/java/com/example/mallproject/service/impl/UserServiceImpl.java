@@ -11,17 +11,17 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserMapper userMapper;
+    private UserMapper mapper;
 
     @Override
     public List<User> getAll() {
         QueryWrapper<User> query = new QueryWrapper<User>();
-        return userMapper.selectList(query);
+        return mapper.selectList(query);
     }
 
     @Override
     public User getById(int id) {
-        return userMapper.selectById(id);
+        return mapper.selectById(id);
     }
 
     @Override
@@ -29,38 +29,38 @@ public class UserServiceImpl implements UserService {
         QueryWrapper<User> query = new QueryWrapper<>();
         query.eq("name", name);
         User user = new User();
-        user = userMapper.selectOne(query);
+        user = mapper.selectOne(query);
         return user;
     }
 
     @Override
     public int add(User user) {
-        return userMapper.insert(user);
+        return mapper.insert(user);
     }
 
     @Override
     public int deleteByName(String name) {
        QueryWrapper<User> query = new QueryWrapper<>();
        query.eq("name", name);
-       return userMapper.delete(query);
+       return mapper.delete(query);
     }
 
     @Override
     public int deleteById(int id) {
-        return userMapper.deleteById(id);
+        return mapper.deleteById(id);
     }
 
     @Override
     public int updateByName(String name, User user) {
         QueryWrapper<User> query = new QueryWrapper<>();
         query.eq("name", name);
-        return userMapper.update(user, query);
+        return mapper.update(user, query);
     }
 
     @Override
     public int updateById(int id, User user) {
         QueryWrapper<User> query = new QueryWrapper<>();
         query.eq("id", id);
-        return userMapper.update(user, query);
+        return mapper.update(user, query);
     }
 }

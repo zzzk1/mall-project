@@ -1,8 +1,6 @@
 package com.example.mallproject;
 
-import com.example.mallproject.pojo.Permission;
-import com.example.mallproject.pojo.Role;
-import com.example.mallproject.service.PermissionService;
+import com.example.mallproject.pojo.DO.Role;
 import com.example.mallproject.service.RoleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.example.mallproject.service;
 
-import com.example.mallproject.pojo.Role;
+import com.example.mallproject.pojo.DO.Role;
 
 import java.util.List;
 
