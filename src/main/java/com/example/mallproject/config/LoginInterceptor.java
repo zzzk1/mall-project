@@ -1,6 +1,6 @@
 package com.example.mallproject.config;
 
-import com.example.mallproject.pojo.DO.User;
+import com.example.mallproject.entity.User;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;

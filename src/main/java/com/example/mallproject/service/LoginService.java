@@ -1,10 +1,9 @@
 package com.example.mallproject.service;
 
-import com.example.mallproject.common.api.Result;
-import com.example.mallproject.pojo.DO.User;
+import com.example.mallproject.entity.User;
 
 public interface LoginService {
-    Result<User> login (User user);
-    Result<User> register(User user);
+    User login(User user);
 
+    boolean enroll(User user);
 }
