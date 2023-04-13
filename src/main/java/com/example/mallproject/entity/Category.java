@@ -1,9 +1,12 @@
 package com.example.mallproject.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -42,11 +45,6 @@ public class Category implements Serializable {
     private Long parentCid;
 
     /**
-     * 层级
-     */
-    private Integer level;
-
-    /**
      * 是否显示[0-不显示，1显示]
      */
     private Integer showStatus;
@@ -71,5 +69,6 @@ public class Category implements Serializable {
      */
     private Integer productCount;
 
-
+    @TableField(exist = false)
+    private List<Category> children = new ArrayList<>();
 }
