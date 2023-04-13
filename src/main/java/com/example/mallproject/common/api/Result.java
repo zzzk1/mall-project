@@ -16,8 +16,8 @@ public class Result<T> {
         this.data = data;
     }
 
-    public static<T> Result<T> Success(T data) {
-        return new Result<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
+    public static<T> Result<T> Success(T data, String message) {
+        return new Result<T>(ResultCode.SUCCESS.getCode(), message, data);
     }
 
     public static<T> Result<T> Failed(T data) {

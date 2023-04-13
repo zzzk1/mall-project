@@ -1,9 +1,19 @@
 package com.example.mallproject.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.mallproject.common.api.Result;
+import com.example.mallproject.common.utils.ValidatorUtils;
+import com.example.mallproject.entity.User;
+import com.example.mallproject.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * <p>
@@ -16,5 +26,38 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    @Autowired
+    private UserService userService;
+    @Autowired
+    HttpSession session;
+    @PostMapping("/login")
+    public Result<User> login(@RequestBody User user) {
+        ValidatorUtils.checkNull(user, "user");
+        ValidatorUtils.checkNull(user.getName(), "username");
+        ValidatorUtils.checkNull(user.getPassword(), "password");
 
+        User loginUser = userService.login(user);
+        if (loginUser == null) {
+            return Result.Failed(null, "密码错误或用户名错误");
+        }
+        session.setAttribute("user", user);
+        return Result.Success(loginUser, "登录成功");
+    }
+
+    @PostMapping("/register")
+    public Result<Boolean> enroll(@RequestBody User user) {
+        ValidatorUtils.checkNull(user, "user");
+        ValidatorUtils.checkNull(user.getName(), "username");
+        ValidatorUtils.checkNull(user.getPassword(), "password");
+
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        userQueryWrapper.eq("name", user.getName());
+
+        if (userService.getOne(userQueryWrapper) != null) {
+            return Result.Failed( false,"用户名已存在");
+        }
+        userService.enroll(user);
+        session.setAttribute("user", user);
+        return Result.Success(true, "注册成功");
+    }
 }
