@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserService extends IService<User> {
     User getUserAndRoleById(int id);
+    User login(User user);
+    boolean enroll(User user);
 }

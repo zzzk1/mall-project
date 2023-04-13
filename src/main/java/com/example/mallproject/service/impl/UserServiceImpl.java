@@ -43,4 +43,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setRole(role);
         return user;
     }
+
+    @Autowired
+    private UserService userService;
+    @Override
+    public User login(User user) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("name", user.getName());
+        queryWrapper.eq("password", user.getPassword());
+        return userService.getOne(queryWrapper);
+    }
+
+    @Override
+    public boolean enroll(User user) {
+        return userService.save(user);
+    }
 }
