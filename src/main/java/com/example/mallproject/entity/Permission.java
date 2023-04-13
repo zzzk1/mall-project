@@ -5,20 +5,17 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.*;
 import lombok.experimental.Accessors;
 
+
 /**
- * <p>
- * 
- * </p>
- *
  * @author zzzk1
- * @since 2023-04-12
  */
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 @TableName("t_permission")
 public class Permission implements Serializable {
@@ -28,15 +25,12 @@ public class Permission implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    private String module;
-
-    private String name;
+    private String method;
 
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
 
     private Boolean deleted;
-
 
 }
