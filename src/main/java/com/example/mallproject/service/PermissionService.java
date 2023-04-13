@@ -2,6 +2,7 @@ package com.example.mallproject.service;
 
 import com.example.mallproject.entity.Permission;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mallproject.entity.Role;
 
 /**
  * <p>

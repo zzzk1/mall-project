@@ -1,12 +1,14 @@
 package com.example.mallproject.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.List;
+
+import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
@@ -17,8 +19,10 @@ import lombok.experimental.Accessors;
  * @author zzzk1
  * @since 2023-04-12
  */
-@Getter
-@Setter
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 @TableName("t_role")
 public class Role implements Serializable {
@@ -38,5 +42,9 @@ public class Role implements Serializable {
 
     private Boolean deleted;
 
+    @TableField(exist = false)
+    private List<User> users;
 
+    @TableField(exist = false)
+    private List<Permission> permissions;
 }
