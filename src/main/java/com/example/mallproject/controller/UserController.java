@@ -2,6 +2,7 @@ package com.example.mallproject.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.mallproject.Annotation.LoginRequired;
 import com.example.mallproject.Annotation.PermissionRequired;
 import com.example.mallproject.common.api.Logical;
 import com.example.mallproject.common.api.Result;
@@ -64,9 +65,19 @@ public class UserController {
         return Result.Success(true, "注册成功");
     }
 
-    @PermissionRequired(userType = {UserType.ADMIN,UserType.TEACHER, UserType.STUDENT, UserType.VISITOR}, logical = Logical.OR)
-    @GetMapping("/needPermission")
-    public Result<String> needPermission() {
-        return Result.Success(null,"if you see this, you has the permission.");
+    @LoginRequired
+    @GetMapping("logout")
+    public Result<Boolean> logout() {
+        User loginUser = (User) session.getAttribute(WebConstant.CURRENT_USER_IN_SESSION);
+        ValidatorUtils.checkLogin(loginUser);
+        session.removeAttribute(WebConstant.CURRENT_USER_IN_SESSION);
+        return Result.Success(true, "退出成功");
     }
+    //用户对应的角色
+    @PermissionRequired(userType = {UserType.ADMIN}, logical = Logical.OR)
+    @GetMapping("{id}")
+    public Result<User> getUsersAndRole(@PathVariable int id) {
+        return Result.Success(userService.getUserAndRoleById(id));
+    }
+
 }

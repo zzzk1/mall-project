@@ -21,7 +21,7 @@ public @interface PermissionRequired {
      * 角色，默认游客权限
      *
      */
-    UserType[] userType() default {UserType.VISITOR};
+    UserType[] userType() default {UserType.USER};
 
     /**
      * 逻辑关系，比如 ADMIN&&TEACHER 或者 ADMIN||TEACHER

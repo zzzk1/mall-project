@@ -10,10 +10,7 @@ import java.util.Objects;
 @Getter
 public enum UserType {
     ADMIN(1, "管理员"),
-    TEACHER(2, "教师"),
-    STUDENT(3, "学生"),
-    VISITOR(4, "游客");
-
+    USER(2, "用户");
     private final Integer value;
     private final String desc;
 
