@@ -3,7 +3,6 @@ package com.example.mallproject.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mallproject.entity.*;
 import com.example.mallproject.mapper.RoleMapper;
-import com.example.mallproject.mapper.UserMapper;
 import com.example.mallproject.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     private RoleMapper roleMapper;
 
     @Override
-    public Role getUsersAndRoleById(int id) {
+    public Role getUsersAndRoleById(long id) {
 
        //在表中找到roleid与userid的所有列
         QueryWrapper<UserRole> userRoleQueryWrapper = new QueryWrapper<>();
@@ -55,7 +54,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Autowired
     private RolePermissionService rolePermissionService;
     @Override
-    public Role getPermissionAndRoleById(int id) {
+    public Role getPermissionAndRoleById(long id) {
         //获取permissionid 与 roleid的所有列
         QueryWrapper<RolePermission> rolePermissionQueryWrapper = new QueryWrapper<>();
         rolePermissionQueryWrapper.eq("role_id", id);
