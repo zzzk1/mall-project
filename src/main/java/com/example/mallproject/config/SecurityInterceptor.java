@@ -19,9 +19,6 @@ import javax.servlet.http.HttpSession;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-/**
- * @author zzzk1
- */
 public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
     @Override
@@ -36,8 +33,6 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-
-        HttpSession session = request.getSession();
         // 登录校验
         User user = handleLogin(request, response);
         ThreadLocalUtil.put(WebConstant.USER_INFO, user);

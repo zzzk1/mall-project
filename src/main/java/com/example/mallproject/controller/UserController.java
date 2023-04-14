@@ -42,7 +42,7 @@ public class UserController {
         if (loginUser == null) {
             return Result.Failed(null, "密码错误或用户名错误");
         }
-        session.setAttribute(WebConstant.CURRENT_USER_IN_SESSION, user);
+        session.setAttribute(WebConstant.CURRENT_USER_IN_SESSION, loginUser);
 
         return Result.Success(loginUser, "登录成功");
     }
@@ -64,9 +64,9 @@ public class UserController {
         return Result.Success(true, "注册成功");
     }
 
-    @PermissionRequired(userType = {UserType.ADMIN,UserType.TEACHER}, logical = Logical.OR)
+    @PermissionRequired(userType = {UserType.ADMIN,UserType.TEACHER, UserType.STUDENT, UserType.VISITOR}, logical = Logical.OR)
     @GetMapping("/needPermission")
     public Result<String> needPermission() {
-        return Result.Success(null, "if you see this, you has the permission.");
+        return Result.Success(null,"if you see this, you has the permission.");
     }
 }

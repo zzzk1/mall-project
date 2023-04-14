@@ -12,7 +12,7 @@ public class UserTest {
     UserService service;
 
     @Test
-    void test() {
+    void getUserAndRoleById() {
         System.out.println("userinfo:" + service.getUserAndRoleById(1));
     }
 
