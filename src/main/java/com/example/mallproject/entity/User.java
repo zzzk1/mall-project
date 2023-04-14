@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import lombok.*;
@@ -22,7 +24,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 @TableName("t_user")
-public class User  {
+public class User  implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,6 +41,7 @@ public class User  {
 
     private Boolean deleted;
 
+    @TableField("user_type")
     private int userType;
 
     @TableField(exist = false)

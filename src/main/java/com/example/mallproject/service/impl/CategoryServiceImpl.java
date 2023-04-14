@@ -48,7 +48,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     @Override
-    public List<Category> getCategoryById(Long pid) {
+    public List<Category> getCategoryByPid(Long pid) {
         QueryWrapper<Category> categoryQueryWrapper = new QueryWrapper<>();
         categoryQueryWrapper.eq("parent_cid", pid);
         return categoryService.list(categoryQueryWrapper);

@@ -39,8 +39,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="PmsCategory" />
-                  <option name="tableName" value="pms_category" />
+                  <option name="className" value="TUser" />
+                  <option name="tableName" value="t_user" />
                 </TableUIInfo>
               </list>
             </option>

@@ -17,6 +17,6 @@ public class CategoryTest {
 
     @Test
     void getCategoryByPid() {
-        System.out.println(categoryService.getCategoryById(0L));
+        System.out.println(categoryService.getCategoryByPid(0L));
     }
 }

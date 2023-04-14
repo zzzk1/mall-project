@@ -3,7 +3,6 @@ package com.example.mallproject.service;
 import com.example.mallproject.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,5 +17,5 @@ public interface CategoryService extends IService<Category> {
 
     List<Category> getAllCategory();
 
-    List<Category> getCategoryById(Long pid);
+    List<Category> getCategoryByPid(Long pid);
 }

@@ -1,7 +1,11 @@
 package com.example.mallproject.controller;
 
 
+import com.example.mallproject.Annotation.LoginRequired;
+import com.example.mallproject.Annotation.PermissionRequired;
+import com.example.mallproject.common.api.Logical;
 import com.example.mallproject.common.api.Result;
+import com.example.mallproject.common.api.UserType;
 import com.example.mallproject.entity.Category;
 import com.example.mallproject.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +25,11 @@ import java.util.List;
  * @author zzzk1
  * @since 2023-04-12
  */
+
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
+
     @Autowired
     private CategoryService categoryService;
 
@@ -34,6 +40,6 @@ public class CategoryController {
 
     @GetMapping("{pid}")
     public Result<List<Category>> getCategoryByPid(@PathVariable Long pid) {
-        return Result.Success(categoryService.getCategoryById(pid), "查询成功");
+        return Result.Success(categoryService.getCategoryByPid(pid), "查询成功");
     }
 }

@@ -2,16 +2,16 @@ package com.example.mallproject.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.mallproject.Annotation.PermissionRequired;
+import com.example.mallproject.common.api.Logical;
 import com.example.mallproject.common.api.Result;
+import com.example.mallproject.common.api.UserType;
+import com.example.mallproject.common.api.WebConstant;
 import com.example.mallproject.common.utils.ValidatorUtils;
 import com.example.mallproject.entity.User;
 import com.example.mallproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,10 +26,12 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     private UserService userService;
     @Autowired
     HttpSession session;
+
     @PostMapping("/login")
     public Result<User> login(@RequestBody User user) {
         ValidatorUtils.checkNull(user, "user");
@@ -40,7 +42,8 @@ public class UserController {
         if (loginUser == null) {
             return Result.Failed(null, "密码错误或用户名错误");
         }
-        session.setAttribute("user", user);
+        session.setAttribute(WebConstant.CURRENT_USER_IN_SESSION, user);
+
         return Result.Success(loginUser, "登录成功");
     }
 
@@ -59,5 +62,11 @@ public class UserController {
         userService.enroll(user);
         session.setAttribute("user", user);
         return Result.Success(true, "注册成功");
+    }
+
+    @PermissionRequired(userType = {UserType.ADMIN,UserType.TEACHER}, logical = Logical.OR)
+    @GetMapping("/needPermission")
+    public Result<String> needPermission() {
+        return Result.Success(null, "if you see this, you has the permission.");
     }
 }
