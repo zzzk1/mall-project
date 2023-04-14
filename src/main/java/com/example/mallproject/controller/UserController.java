@@ -73,11 +73,26 @@ public class UserController {
         session.removeAttribute(WebConstant.CURRENT_USER_IN_SESSION);
         return Result.Success(true, "退出成功");
     }
+
     //用户对应的角色
     @PermissionRequired(userType = {UserType.ADMIN}, logical = Logical.OR)
-    @GetMapping("{id}")
+    @GetMapping("/role/{id}")
     public Result<User> getUsersAndRole(@PathVariable int id) {
         return Result.Success(userService.getUserAndRoleById(id));
     }
 
+    //查询对应的用户
+    @PermissionRequired(userType = {UserType.ADMIN}, logical = Logical.OR)
+    @GetMapping("/{id}")
+    public Result<User> getUserById(@PathVariable long id) {
+        return Result.Success(userService.getById(id));
+    }
+
+    //修改用户信息
+    @LoginRequired
+    @PutMapping("/{id}")
+    public Result<Boolean> updateUserById(@PathVariable long id, @RequestBody User user) {
+        user.setId(id);
+        return Result.Success(userService.updateById(user));
+    }
 }

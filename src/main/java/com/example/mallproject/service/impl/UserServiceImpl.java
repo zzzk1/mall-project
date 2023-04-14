@@ -30,7 +30,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
 
     @Override
-    public User getUserAndRoleById(int id) {
+    public User getUserAndRoleById(long id) {
         //根据userid在关系表中找到userid和roleid
         QueryWrapper<UserRole> userRoleQueryWrapper = new QueryWrapper<>();
         userRoleQueryWrapper.eq("user_id", id);
