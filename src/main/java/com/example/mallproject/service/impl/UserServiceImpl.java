@@ -1,6 +1,7 @@
 package com.example.mallproject.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.Role;
 import com.example.mallproject.entity.User;
 import com.example.mallproject.entity.UserRole;
@@ -28,6 +29,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserRoleService userRoleService;
     @Autowired
     private UserMapper userMapper;
+
+    @Override
+    public Page<User> selectAll(int curr, int size) {
+        Page<User> page = new Page<>(curr,size);
+        return userMapper.selectPage(page, new QueryWrapper<>());
+    }
 
     @Override
     public User getUserAndRoleById(long id) {
