@@ -6,12 +6,9 @@ import com.example.mallproject.common.api.Result;
 import com.example.mallproject.entity.Brand;
 import com.example.mallproject.entity.SpuInfo;
 import com.example.mallproject.service.BrandService;
+import com.example.mallproject.service.SpuInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -26,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class BrandController {
     @Autowired
     private BrandService brandService;
+    @Autowired
+    private SpuInfoService spuInfoService;
 
     @GetMapping
     public Result<Page<SpuInfo>> getSpuByBrandId(@RequestParam(value = "id", defaultValue = "2") int id,
@@ -33,4 +32,6 @@ public class BrandController {
                                                  @RequestParam(value = "size", defaultValue = "5") int size) {
         return Result.Success(brandService.getSpuInfo(id, curr, size));
     }
+
+
 }
