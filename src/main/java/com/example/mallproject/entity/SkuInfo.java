@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * sku信息
+ * sku信息 小米5 64G版
  * </p>
  *
  * @author zzzk1

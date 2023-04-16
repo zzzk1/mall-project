@@ -1,9 +1,14 @@
 package com.example.mallproject.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.Brand;
+import com.example.mallproject.entity.SpuInfo;
 import com.example.mallproject.mapper.BrandMapper;
 import com.example.mallproject.service.BrandService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.mallproject.service.SpuInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,5 +21,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements BrandService {
+    @Autowired
+    private SpuInfoService spuInfoService;
 
+    @Override
+    public Page<SpuInfo> getSpuInfo(int id, int curr, int size) {
+        return spuInfoService.getSpusByBrandId(id, curr, size);
+    }
 }

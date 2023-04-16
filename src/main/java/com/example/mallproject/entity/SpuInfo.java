@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * spu信息
+ * spu信息 小米5
  * </p>
  *
  * @author zzzk1
