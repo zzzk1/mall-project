@@ -1,5 +1,6 @@
 package com.example.mallproject.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.SpuInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,5 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-04-16
  */
 public interface SpuInfoService extends IService<SpuInfo> {
-
+    Page<SpuInfo> getSpusByBrandId(int brandId, int curr, int size);
 }
