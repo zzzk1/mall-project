@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zzzk1
@@ -33,8 +33,4 @@ public class Brand implements Serializable {
     private String logo;
 
     private String description;
-
-    private Integer deleted;
-
-
 }
