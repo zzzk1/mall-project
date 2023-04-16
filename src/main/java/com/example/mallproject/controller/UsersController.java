@@ -2,6 +2,7 @@ package com.example.mallproject.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.Annotation.LoginRequired;
 import com.example.mallproject.Annotation.PermissionRequired;
 import com.example.mallproject.common.api.Logical;
@@ -102,8 +103,8 @@ public class UsersController {
     //查询所有用户
     @PermissionRequired(userType = {UserType.ADMIN}, logical = Logical.OR)
     @GetMapping("/admin/all")
-    public Result<List<User>> getUsers() {
-        return Result.Success(userService.list());
+    public Result<Page<User>> getUsers(@RequestParam int curr, @RequestParam int size) {
+        return Result.Success(userService.selectAll(curr, size));
     }
     //查询指定用户
     @PermissionRequired(userType = {UserType.ADMIN}, logical = Logical.OR)
