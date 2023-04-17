@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 
+/**
+ * @author zzzk1
+ */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     @Override

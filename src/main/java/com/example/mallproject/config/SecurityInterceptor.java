@@ -23,10 +23,6 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // 不拦截跨域请求相关
-        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            return true;
-        }
 
         // 如果方法上没有加@LoginRequired或@PermissionRequired（上面叠加了@LoginRequired），直接放行
         if (isLoginFree(handler)) {
