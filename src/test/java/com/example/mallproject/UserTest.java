@@ -23,4 +23,9 @@ public class UserTest {
         user.setPassword("admin");
         service.login(user);
     }
+
+    @Test
+    void page() {
+        service.selectAll(1, 5, "a");
+    }
 }

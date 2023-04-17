@@ -8,12 +8,13 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zzzk1
@@ -33,17 +34,27 @@ public class User  implements Serializable {
 
     private String name;
 
+    @JsonIgnore
     private String password;
+
+    private String address;
+
+    private String email;
+
+    private long telephone;
 
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
 
+    @JsonIgnore
     private Boolean deleted;
 
+    @JsonIgnore
     @TableField("user_type")
     private int userType;
 
+    @JsonIgnore
     @TableField(exist = false)
     private Role role;
 

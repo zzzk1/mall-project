@@ -31,9 +31,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
 
     @Override
-    public Page<User> selectAll(int curr, int size) {
+    public Page<User> selectAll(int curr, int size, String name) {
         Page<User> page = new Page<>(curr,size);
-        return userMapper.selectPage(page, new QueryWrapper<>());
+        QueryWrapper queryWrapper = new QueryWrapper<User>().like("name", name);
+        return userMapper.selectPage(page, queryWrapper);
     }
 
     @Override
