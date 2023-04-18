@@ -1,5 +1,6 @@
 package com.example.mallproject;
 
+import com.example.mallproject.controller.dto.UserDTO;
 import com.example.mallproject.entity.User;
 import com.example.mallproject.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -18,8 +19,8 @@ public class UserTest {
 
     @Test
     void login() {
-        User user = new User();
-        user.setName("admin");
+        UserDTO user = new UserDTO();
+        user.setUsername("admin");
         user.setPassword("admin");
         service.login(user);
     }

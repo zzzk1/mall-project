@@ -1,6 +1,7 @@
 package com.example.mallproject.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.mallproject.controller.dto.UserDTO;
 import com.example.mallproject.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -15,6 +16,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface UserService extends IService<User> {
     Page<User> selectAll(int curr, int size, String name);
     User getUserAndRoleById(long id);
-    User login(User user);
-    boolean enroll(User user);
+    User login(UserDTO userDTO);
+    User enroll(UserDTO userDTO);
 }

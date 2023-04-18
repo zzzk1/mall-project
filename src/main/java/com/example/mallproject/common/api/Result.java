@@ -31,4 +31,12 @@ public class Result<T> {
     public static<T> Result<T> Failed(T data, String message) {
         return new Result<T>(ResultCode.FAILED.getCode(), message, data);
     }
+
+    public static<T> Result<T> registerFailed() {
+        return new Result<>(ResultCode.USER_EXIST.getCode(), ResultCode.USER_EXIST.getMessage(), null);
+    }
+
+    public static<T> Result<T> loginFailed() {
+        return new Result<>(ResultCode.LOGIN_FAILED.getCode(), ResultCode.LOGIN_FAILED.getMessage(), null);
+    }
 }
