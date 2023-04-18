@@ -4,14 +4,12 @@ package com.example.mallproject.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.Annotation.LoginRequired;
-import com.example.mallproject.Annotation.PermissionRequired;
-import com.example.mallproject.common.Exception.BizException;
 import com.example.mallproject.common.api.*;
+import com.example.mallproject.common.utils.JwtUtil;
 import com.example.mallproject.common.utils.ValidatorUtils;
 import com.example.mallproject.controller.dto.UserDTO;
 import com.example.mallproject.entity.User;
 import com.example.mallproject.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,22 +30,34 @@ public class UsersController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    HttpSession session;
+
+//    @PostMapping("/login")
+//    public Result<User> login(@RequestBody UserDTO userDTO) {
+//        ValidatorUtils.checkNull(userDTO, "user");
+//        System.out.println(userDTO);
+//        ValidatorUtils.checkNull(userDTO.getUsername(), "username");
+//        ValidatorUtils.checkNull(userDTO.getPassword(), "password");
+//
+//        User loginUser = userService.login(userDTO);
+//        if (loginUser == null) {
+//           return Result.loginFailed();
+//        }
+//        session.setAttribute(WebConstant.CURRENT_USER_IN_SESSION, loginUser);
+//        return Result.Success(loginUser);
+//    }
 
     @PostMapping("/login")
-    public Result<User> login(@RequestBody UserDTO userDTO) {
+    public Result<String> login(@RequestBody UserDTO userDTO) {
         ValidatorUtils.checkNull(userDTO, "user");
-        System.out.println(userDTO);
         ValidatorUtils.checkNull(userDTO.getUsername(), "username");
         ValidatorUtils.checkNull(userDTO.getPassword(), "password");
 
-        User loginUser = userService.login(userDTO);
-        if (loginUser == null) {
-           return Result.loginFailed();
+        String token = JwtUtil.sign(userDTO.getUsername(),userDTO.getPassword());
+        if (token != null) {
+            return Result.Success(token, "登录成功");
+        } else {
+            return Result.loginFailed();
         }
-        session.setAttribute(WebConstant.CURRENT_USER_IN_SESSION, loginUser);
-        return Result.Success(loginUser);
     }
 
     @PostMapping("/register")
@@ -61,15 +71,6 @@ public class UsersController {
         } else {
             return Result.registerFailed();
         }
-    }
-
-    @LoginRequired
-    @GetMapping("logout")
-    public Result<Boolean> logout() {
-        User loginUser = (User) session.getAttribute(WebConstant.CURRENT_USER_IN_SESSION);
-        ValidatorUtils.checkLogin(loginUser);
-        session.removeAttribute(WebConstant.CURRENT_USER_IN_SESSION);
-        return Result.Success(true, "退出成功");
     }
 
     //分页模糊查询
