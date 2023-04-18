@@ -19,6 +19,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public Result<ResultCode> handleRunTimeException(RuntimeException e) {
         log.warn("运行时异常: {}", e.getMessage(), e);
-        return Result.Failed(ResultCode.FAILED);
+        return Result.Failed(ResultCode.FORBIDDEN);
     }
 }

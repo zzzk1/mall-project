@@ -2,6 +2,7 @@ package com.example.mallproject.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.mallproject.controller.dto.UserDTO;
 import com.example.mallproject.entity.Role;
 import com.example.mallproject.entity.User;
 import com.example.mallproject.entity.UserRole;
@@ -33,7 +34,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Page<User> selectAll(int curr, int size, String name) {
         Page<User> page = new Page<>(curr,size);
-        QueryWrapper queryWrapper = new QueryWrapper<User>().like("name", name);
+        QueryWrapper queryWrapper = new QueryWrapper<User>().like("username", name);
         return userMapper.selectPage(page, queryWrapper);
     }
 
@@ -55,15 +56,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     private UserService userService;
     @Override
-    public User login(User user) {
+    public User login(UserDTO userDTO) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("name", user.getName());
-        queryWrapper.eq("password", user.getPassword());
+        queryWrapper.eq("username", userDTO.getUsername());
+        queryWrapper.eq("password", userDTO.getPassword());
         return userService.getOne(queryWrapper);
     }
 
     @Override
-    public boolean enroll(User user) {
-        return userService.save(user);
+    public User enroll(UserDTO userDTO) {
+        if (userService.getOne(new QueryWrapper<User>().eq("username", userDTO.getUsername())) != null) {
+            return null;
+        }
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(userDTO.getPassword());
+        if (userService.save(user)) {
+            return user;
+        } else {
+            return null;
+        }
     }
 }

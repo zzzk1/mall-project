@@ -5,13 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.Annotation.LoginRequired;
 import com.example.mallproject.Annotation.PermissionRequired;
-import com.example.mallproject.common.api.Logical;
-import com.example.mallproject.common.api.Result;
-import com.example.mallproject.common.api.UserType;
-import com.example.mallproject.common.api.WebConstant;
+import com.example.mallproject.common.Exception.BizException;
+import com.example.mallproject.common.api.*;
 import com.example.mallproject.common.utils.ValidatorUtils;
+import com.example.mallproject.controller.dto.UserDTO;
 import com.example.mallproject.entity.User;
 import com.example.mallproject.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,35 +36,31 @@ public class UsersController {
     HttpSession session;
 
     @PostMapping("/login")
-    public Result<User> login(@RequestBody User user) {
-        ValidatorUtils.checkNull(user, "user");
-        ValidatorUtils.checkNull(user.getName(), "username");
-        ValidatorUtils.checkNull(user.getPassword(), "password");
+    public Result<User> login(@RequestBody UserDTO userDTO) {
+        ValidatorUtils.checkNull(userDTO, "user");
+        System.out.println(userDTO);
+        ValidatorUtils.checkNull(userDTO.getUsername(), "username");
+        ValidatorUtils.checkNull(userDTO.getPassword(), "password");
 
-        User loginUser = userService.login(user);
+        User loginUser = userService.login(userDTO);
         if (loginUser == null) {
-            return Result.Failed(null, "密码错误或用户名错误");
+           return Result.loginFailed();
         }
         session.setAttribute(WebConstant.CURRENT_USER_IN_SESSION, loginUser);
-
-        return Result.Success(loginUser, "登录成功");
+        return Result.Success(loginUser);
     }
 
     @PostMapping("/register")
-    public Result<Boolean> enroll(@RequestBody User user) {
-        ValidatorUtils.checkNull(user, "user");
-        ValidatorUtils.checkNull(user.getName(), "username");
-        ValidatorUtils.checkNull(user.getPassword(), "password");
-
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-        userQueryWrapper.eq("name", user.getName());
-
-        if (userService.getOne(userQueryWrapper) != null) {
-            return Result.Failed( false,"用户名已存在");
+    public Result<User> enroll(@RequestBody UserDTO userDTO) {
+        ValidatorUtils.checkNull(userDTO, "userDTO");
+        ValidatorUtils.checkNull(userDTO.getUsername(), "username");
+        ValidatorUtils.checkNull(userDTO.getPassword(), "password");
+        User loginUser = userService.enroll(userDTO);
+        if (loginUser != null) {
+            return Result.Success(loginUser, "注册成功");
+        } else {
+            return Result.registerFailed();
         }
-        userService.enroll(user);
-        session.setAttribute("user", user);
-        return Result.Success(true, "注册成功");
     }
 
     @LoginRequired
@@ -78,9 +74,34 @@ public class UsersController {
 
     //分页模糊查询
     @GetMapping("/page")
-    public Page<User> pageResult(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+    public Result<Page<User>> pageResult(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                  @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
                                  @RequestParam(value = "username", defaultValue = "") String username) {
-        return userService.selectAll(pageNum, pageSize, username);
+        return Result.Success(userService.selectAll(pageNum, pageSize, username));
     }
+
+    //新增或修改
+    @PostMapping
+    public Result<Boolean> edit(@RequestBody User user) {
+        ValidatorUtils.checkNull(user, "user");
+        return Result.Success(userService.saveOrUpdate(user));
+    }
+
+    @DeleteMapping(("{id}"))
+    public Result<Boolean> delete(@PathVariable long id) {
+        return Result.Success(userService.removeById(id));
+    }
+
+    @PostMapping("/del/batch")
+    public Result<Boolean> deleteBatchId(@RequestBody List<Long> ids) {
+        return Result.Success(userService.removeBatchByIds(ids));
+    }
+
+    @GetMapping("/username/{username}")
+    public Result<User> findOne(@PathVariable(value = "username") String username) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", username);
+        return Result.Success(userService.getOne(queryWrapper));
+    }
+
 }

@@ -32,8 +32,9 @@ public class User  implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    private String name;
+    private String username;
 
+    private String nickname;
     @JsonIgnore
     private String password;
 
@@ -41,7 +42,7 @@ public class User  implements Serializable {
 
     private String email;
 
-    private long telephone;
+    private long phone;
 
     private LocalDateTime createTime;
 
