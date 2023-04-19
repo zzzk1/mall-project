@@ -32,16 +32,17 @@ public class CodeGenerator {
                 //包配置
                 .packageConfig(builder -> {
                     builder.parent("com.example.mallproject") // 设置父包名
-                            .controller("controller") //生成controller层
-                            .entity("entity") //生成实体层
-                            .service("service") //生成服务层
-                            .mapper("mapper"); //生成mapper层
+
+                            .entity("entity"); //生成实体层
+//                            .controller("controller")//生成controller层
+//                            .service("service") //生成服务层
+//                            .mapper("mapper"); //生成mapper层
                     // .moduleName("mybatisplus");
                 })
                 //策略配置
                 .strategyConfig(builder -> {
-                    builder.addInclude("pms_order") // 设置需要生成的表名
-                            .addTablePrefix("pms_")// 设置过滤表前缀
+                    builder.addInclude("sys_user") // 设置需要生成的表名
+                            .addTablePrefix("sys_")// 设置过滤表前缀
                             .serviceBuilder() //开启service策略配置
                             .formatServiceFileName("%sService") //取消Service前的I
                             .controllerBuilder() //开启controller策略配置

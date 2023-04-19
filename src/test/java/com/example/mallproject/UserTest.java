@@ -12,10 +12,6 @@ public class UserTest {
     @Autowired
     UserService service;
 
-    @Test
-    void getUserAndRoleById() {
-        System.out.println("userinfo:" + service.getUserAndRoleById(1));
-    }
 
     @Test
     void login() {

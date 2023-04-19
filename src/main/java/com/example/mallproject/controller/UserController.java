@@ -5,17 +5,15 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.mallproject.common.api.*;
+import com.example.mallproject.common.api.Result;
 import com.example.mallproject.common.utils.JwtUtil;
 import com.example.mallproject.common.utils.ValidatorUtils;
 import com.example.mallproject.controller.dto.UserDTO;
 import com.example.mallproject.entity.User;
 import com.example.mallproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,11 +23,11 @@ import java.util.List;
  * </p>
  *
  * @author zzzk1
- * @since 2023-04-12
+ * @since 2023-04-19
  */
 @RestController
 @RequestMapping("/user")
-public class UsersController {
+public class UserController {
 
     @Autowired
     private UserService userService;
@@ -94,8 +92,8 @@ public class UsersController {
     //分页模糊查询
     @GetMapping("/page")
     public Result<Page<User>> pageResult(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
-                                 @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
-                                 @RequestParam(value = "username", defaultValue = "") String username) {
+                                         @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
+                                         @RequestParam(value = "username", defaultValue = "") String username) {
         return Result.Success(userService.selectAll(pageNum, pageSize, username));
     }
 
@@ -124,5 +122,4 @@ public class UsersController {
         queryWrapper.eq("username", username);
         return Result.Success(userService.getOne(queryWrapper));
     }
-
 }
