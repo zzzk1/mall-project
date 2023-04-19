@@ -1,7 +1,9 @@
 package com.example.mallproject.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mallproject.entity.User;
 
 /**
  * <p>
@@ -12,5 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-04-19
  */
 public interface RoleService extends IService<Role> {
-
+    Page<Role> selectAll(int pageNum, int pageSize, String roleName);
 }
