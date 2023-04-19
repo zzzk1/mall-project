@@ -1,7 +1,9 @@
 package com.example.mallproject.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mallproject.entity.User;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface MenuService extends IService<Menu> {
 
+    Page<Menu>selectAll(int pageNum, int pageSize, String name);
 }
