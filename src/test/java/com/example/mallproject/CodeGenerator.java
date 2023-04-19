@@ -33,15 +33,15 @@ public class CodeGenerator {
                 .packageConfig(builder -> {
                     builder.parent("com.example.mallproject") // 设置父包名
 
-                            .entity("entity"); //生成实体层
-//                            .controller("controller")//生成controller层
-//                            .service("service") //生成服务层
-//                            .mapper("mapper"); //生成mapper层
+                            .entity("entity") //生成实体层
+                            .controller("controller")//生成controller层
+                            .service("service") //生成服务层
+                            .mapper("mapper"); //生成mapper层
                     // .moduleName("mybatisplus");
                 })
                 //策略配置
                 .strategyConfig(builder -> {
-                    builder.addInclude("sys_user") // 设置需要生成的表名
+                    builder.addInclude("sys_menu", "sys_role", "sys_role_menu") // 设置需要生成的表名
                             .addTablePrefix("sys_")// 设置过滤表前缀
                             .serviceBuilder() //开启service策略配置
                             .formatServiceFileName("%sService") //取消Service前的I
