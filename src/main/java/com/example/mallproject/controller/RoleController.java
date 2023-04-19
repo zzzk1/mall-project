@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.common.api.Result;
 import com.example.mallproject.common.utils.ValidatorUtils;
 import com.example.mallproject.entity.Role;
-import com.example.mallproject.entity.User;
 import com.example.mallproject.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
