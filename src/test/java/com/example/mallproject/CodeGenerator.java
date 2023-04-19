@@ -40,7 +40,7 @@ public class CodeGenerator {
                 })
                 //策略配置
                 .strategyConfig(builder -> {
-                    builder.addInclude("pms_spu_info") // 设置需要生成的表名
+                    builder.addInclude("pms_order") // 设置需要生成的表名
                             .addTablePrefix("pms_")// 设置过滤表前缀
                             .serviceBuilder() //开启service策略配置
                             .formatServiceFileName("%sService") //取消Service前的I
