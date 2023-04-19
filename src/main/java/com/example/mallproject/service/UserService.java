@@ -11,11 +11,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author zzzk1
- * @since 2023-04-12
+ * @since 2023-04-19
  */
 public interface UserService extends IService<User> {
     Page<User> selectAll(int curr, int size, String name);
-    User getUserAndRoleById(long id);
     User login(UserDTO userDTO);
     User enroll(UserDTO userDTO);
+
 }
