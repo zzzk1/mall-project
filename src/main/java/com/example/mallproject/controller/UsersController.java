@@ -1,9 +1,10 @@
 package com.example.mallproject.controller;
 
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.mallproject.Annotation.LoginRequired;
 import com.example.mallproject.common.api.*;
 import com.example.mallproject.common.utils.JwtUtil;
 import com.example.mallproject.common.utils.ValidatorUtils;
@@ -11,9 +12,11 @@ import com.example.mallproject.controller.dto.UserDTO;
 import com.example.mallproject.entity.User;
 import com.example.mallproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -47,17 +50,32 @@ public class UsersController {
 //    }
 
     @PostMapping("/login")
-    public Result<String> login(@RequestBody UserDTO userDTO) {
+    public Result<HashMap<String, Object>> login(@RequestBody UserDTO userDTO) {
         ValidatorUtils.checkNull(userDTO, "user");
         ValidatorUtils.checkNull(userDTO.getUsername(), "username");
         ValidatorUtils.checkNull(userDTO.getPassword(), "password");
 
         String token = JwtUtil.sign(userDTO.getUsername(),userDTO.getPassword());
         if (token != null) {
-            return Result.Success(token, "登录成功");
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("token", token);
+            return Result.Success(map);
         } else {
             return Result.loginFailed();
         }
+    }
+    @GetMapping("/info")
+    public Result<HashMap<String, Object>> info() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("roles", "[admin]");
+        map.put("name", "admin");
+        map.put("avatar", "h");
+        return Result.Success(map);
+    }
+
+    @PostMapping("/logout")
+    public Result loginOut() {
+        return null;
     }
 
     @PostMapping("/register")
@@ -98,8 +116,10 @@ public class UsersController {
         return Result.Success(userService.removeBatchByIds(ids));
     }
 
-    @GetMapping("/username/{username}")
-    public Result<User> findOne(@PathVariable(value = "username") String username) {
+    @GetMapping("/username/{token}")
+    public Result<User> findOne(@PathVariable String token) {
+        DecodedJWT jwt = JWT.decode(token);
+        String username = jwt.getClaim("username").asString();
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
         return Result.Success(userService.getOne(queryWrapper));
