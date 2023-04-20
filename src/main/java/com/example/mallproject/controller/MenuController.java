@@ -1,16 +1,17 @@
 package com.example.mallproject.controller;
 
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mallproject.common.api.Result;
 import com.example.mallproject.common.utils.ValidatorUtils;
 import com.example.mallproject.entity.Menu;
-import com.example.mallproject.entity.Role;
+
 import com.example.mallproject.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -25,11 +26,18 @@ import java.util.List;
 public class MenuController {
     @Autowired
     private MenuService menuService;
-    @GetMapping("/page")
-    public Result<Page<Menu>> pageResult(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
-                                         @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
-                                         @RequestParam(value = "name", defaultValue = "") String name) {
-        return Result.Success(menuService.selectAll(pageNum, pageSize, name));
+
+    @GetMapping
+    public Result<List<Menu>> getAll(@RequestParam(defaultValue = "") String name) {
+        QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("name", name);
+        List<Menu> list = menuService.list(queryWrapper);
+        List<Menu> parentNode = list.stream().filter(menu -> menu.getPid() == null).collect(Collectors.toList());
+        for (Menu menu : parentNode) {
+            menu.setChildren(list.stream().filter(m -> menu.getId().equals(m.getPid())).collect(Collectors.toList()));
+        }
+        return Result.Success(parentNode);
+
     }
 
     //新增或修改
