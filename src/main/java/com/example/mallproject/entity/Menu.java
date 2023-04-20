@@ -1,16 +1,19 @@
 package com.example.mallproject.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zzzk1
@@ -65,5 +68,6 @@ public class Menu implements Serializable {
      */
     private Integer sortNum;
 
-
+    @TableField(exist = false)
+    private List<Menu> children;
 }
