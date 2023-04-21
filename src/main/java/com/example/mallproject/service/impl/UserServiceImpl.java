@@ -49,6 +49,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = new User();
         user.setUsername(userDTO.getUsername());
         user.setPassword(userDTO.getPassword());
+        user.setRole(userDTO.getRole());
         if (userService.save(user)) {
             return user;
         } else {
