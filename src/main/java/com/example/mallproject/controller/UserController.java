@@ -58,13 +58,16 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public Result<User> enroll(@RequestBody UserDTO userDTO) {
+    public Result<UserDTO> enroll(@RequestBody UserDTO userDTO) {
         ValidatorUtils.checkNull(userDTO, "userDTO");
         ValidatorUtils.checkNull(userDTO.getUsername(), "username");
         ValidatorUtils.checkNull(userDTO.getPassword(), "password");
+        userDTO.setRole("USER");
         User loginUser = userService.enroll(userDTO);
-        if (loginUser != null) {
-            return Result.Success(loginUser, "注册成功");
+        String token = JwtUtil.sign(userDTO.getUsername(),userDTO.getPassword());
+        if (token != null) {
+            setLoginUserInfo(loginUser, userDTO, token);
+            return Result.Success(userDTO);
         } else {
             return Result.registerFailed();
         }
