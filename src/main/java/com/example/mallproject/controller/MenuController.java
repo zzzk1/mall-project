@@ -4,8 +4,10 @@ package com.example.mallproject.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mallproject.common.api.Result;
 import com.example.mallproject.common.utils.ValidatorUtils;
+import com.example.mallproject.entity.Dict;
 import com.example.mallproject.entity.Menu;
 
+import com.example.mallproject.service.DictService;
 import com.example.mallproject.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +39,6 @@ public class MenuController {
             menu.setChildren(list.stream().filter(m -> menu.getId().equals(m.getPid())).collect(Collectors.toList()));
         }
         return Result.Success(parentNode);
-
     }
 
     //新增或修改
@@ -55,5 +56,12 @@ public class MenuController {
     @PostMapping("/del/batch")
     public Result<Boolean> deleteBatchId(@RequestBody List<Long> ids) {
         return Result.Success(menuService.removeBatchByIds(ids));
+    }
+
+    @Autowired
+    private DictService dictService;
+    @GetMapping("/icons")
+    public Result<List<Dict>> getAllDist(@RequestParam(defaultValue = "icon") String type) {
+        return Result.Success(dictService.getAll(type));
     }
 }

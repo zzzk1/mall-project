@@ -4,6 +4,7 @@ package com.example.mallproject.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.common.api.Result;
 import com.example.mallproject.common.utils.ValidatorUtils;
+import com.example.mallproject.entity.Menu;
 import com.example.mallproject.entity.Role;
 import com.example.mallproject.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import java.util.List;
 public class RoleController {
     @Autowired
     private RoleService roleService;
+
     //分页模糊查询
     @GetMapping("/page")
     public Result<Page<Role>> pageResult(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
@@ -47,5 +49,16 @@ public class RoleController {
     @PostMapping("/del/batch")
     public Result<Boolean> deleteBatchId(@RequestBody List<Long> ids) {
         return Result.Success(roleService.removeBatchByIds(ids));
+    }
+
+
+    @PostMapping("/roleMenu/{rid}")
+    public Result<Boolean> roleMenu(@PathVariable int rid, @RequestBody List<Integer> menusId) {
+        return Result.Success(roleService.updateRoleMenuInfo(rid,menusId ));
+    }
+
+    @GetMapping("/roleMenu/{rid}")
+    public Result<List<Integer>> getRoleMenu(@PathVariable int rid) {
+        return Result.Success(roleService.getMenusById(rid));
     }
 }

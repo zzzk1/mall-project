@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- * 角色菜单关系表 前端控制器
+ *  前端控制器
  * </p>
  *
  * @author zzzk1
- * @since 2023-04-19
+ * @since 2023-04-20
  */
 @RestController
-@RequestMapping("/roleMenu")
-public class RoleMenuController {
+@RequestMapping("/dict")
+public class DictController {
 
 }

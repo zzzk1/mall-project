@@ -2,6 +2,9 @@ package com.example.mallproject.service;
 
 import com.example.mallproject.entity.RoleMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mallproject.mapper.RoleMenuMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface RoleMenuService extends IService<RoleMenu> {
 
+    int deleteById(int rid);
+
+    List<Integer> getMenusById(int rid);
 }

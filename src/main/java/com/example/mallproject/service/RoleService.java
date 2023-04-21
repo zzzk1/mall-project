@@ -1,9 +1,12 @@
 package com.example.mallproject.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.mallproject.entity.Menu;
 import com.example.mallproject.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.mallproject.entity.User;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +18,8 @@ import com.example.mallproject.entity.User;
  */
 public interface RoleService extends IService<Role> {
     Page<Role> selectAll(int pageNum, int pageSize, String roleName);
+
+    Boolean updateRoleMenuInfo(int rid, List<Integer> menusId);
+
+    List<Integer> getMenusById(int rid);
 }
