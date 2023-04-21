@@ -17,5 +17,6 @@ public interface UserService extends IService<User> {
     Page<User> selectAll(int curr, int size, String name);
     User login(UserDTO userDTO);
     User enroll(UserDTO userDTO);
+    User getUser(String username);
 
 }
