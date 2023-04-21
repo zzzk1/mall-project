@@ -34,7 +34,7 @@ public class MenuController {
         QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("name", name);
         List<Menu> list = menuService.list(queryWrapper);
-        List<Menu> parentNode = list.stream().filter(menu -> menu.getPid() == null).collect(Collectors.toList());
+        List<Menu> parentNode = list.stream().filter(menu -> menu.getPid() == 0).collect(Collectors.toList());
         for (Menu menu : parentNode) {
             menu.setChildren(list.stream().filter(m -> menu.getId().equals(m.getPid())).collect(Collectors.toList()));
         }

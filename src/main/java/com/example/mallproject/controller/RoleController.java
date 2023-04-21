@@ -26,6 +26,10 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+    @GetMapping
+    public Result<List<Role>> getAll() {
+        return Result.Success(roleService.list());
+    }
     //分页模糊查询
     @GetMapping("/page")
     public Result<Page<Role>> pageResult(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
@@ -50,7 +54,6 @@ public class RoleController {
     public Result<Boolean> deleteBatchId(@RequestBody List<Long> ids) {
         return Result.Success(roleService.removeBatchByIds(ids));
     }
-
 
     @PostMapping("/roleMenu/{rid}")
     public Result<Boolean> roleMenu(@PathVariable int rid, @RequestBody List<Integer> menusId) {

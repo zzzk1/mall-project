@@ -1,11 +1,7 @@
 package com.example.mallproject.controller;
 
 
-import com.example.mallproject.Annotation.LoginRequired;
-import com.example.mallproject.Annotation.PermissionRequired;
-import com.example.mallproject.common.api.Logical;
 import com.example.mallproject.common.api.Result;
-import com.example.mallproject.common.api.UserType;
 import com.example.mallproject.entity.Category;
 import com.example.mallproject.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -9,13 +9,17 @@ import com.example.mallproject.common.api.Result;
 import com.example.mallproject.common.utils.JwtUtil;
 import com.example.mallproject.common.utils.ValidatorUtils;
 import com.example.mallproject.controller.dto.UserDTO;
+import com.example.mallproject.entity.Menu;
 import com.example.mallproject.entity.User;
+import com.example.mallproject.service.MenuService;
+import com.example.mallproject.service.UserDTOService;
 import com.example.mallproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -32,43 +36,20 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @PostMapping("/login")
-//    public Result<User> login(@RequestBody UserDTO userDTO) {
-//        ValidatorUtils.checkNull(userDTO, "user");
-//        System.out.println(userDTO);
-//        ValidatorUtils.checkNull(userDTO.getUsername(), "username");
-//        ValidatorUtils.checkNull(userDTO.getPassword(), "password");
-//
-//        User loginUser = userService.login(userDTO);
-//        if (loginUser == null) {
-//           return Result.loginFailed();
-//        }
-//        session.setAttribute(WebConstant.CURRENT_USER_IN_SESSION, loginUser);
-//        return Result.Success(loginUser);
-//    }
-
     @PostMapping("/login")
-    public Result<HashMap<String, Object>> login(@RequestBody UserDTO userDTO) {
+    public Result<UserDTO> login(@RequestBody UserDTO userDTO) {
         ValidatorUtils.checkNull(userDTO, "user");
         ValidatorUtils.checkNull(userDTO.getUsername(), "username");
         ValidatorUtils.checkNull(userDTO.getPassword(), "password");
 
         String token = JwtUtil.sign(userDTO.getUsername(),userDTO.getPassword());
         if (token != null) {
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("token", token);
-            return Result.Success(map);
+            User loginUser = userService.getUser(userDTO.getUsername());
+            setLoginUserInfo(loginUser, userDTO, token);
+            return Result.Success(userDTO);
         } else {
             return Result.loginFailed();
         }
-    }
-    @GetMapping("/info")
-    public Result<HashMap<String, Object>> info() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("roles", "[admin]");
-        map.put("name", "admin");
-        map.put("avatar", "h");
-        return Result.Success(map);
     }
 
     @PostMapping("/logout")
@@ -121,5 +102,40 @@ public class UserController {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
         return Result.Success(userService.getOne(queryWrapper));
+    }
+
+    private void setLoginUserInfo(User user, UserDTO userDTO, String token) {
+        userDTO.setUsername(user.getUsername());
+        userDTO.setPassword(null);
+        userDTO.setToken(token);
+        userDTO.setRole(user.getRole());
+        userDTO.setMenus(getAllMenu(userDTO.getRole()));
+    }
+
+    @Autowired
+    private MenuService menuService;
+    @Autowired
+    private UserDTOService userDTOService;
+    private List<Menu> getAllMenu(String role) {
+       List<Integer> ids = userDTOService.getLoginUserMenuIds(role);
+       List<Menu> menus = menuService.listByIds(ids);
+       return mergedMenus(menus);
+    }
+
+    private List<Menu> mergedMenus(List<Menu> menus) {
+        //将子菜单分入父菜单
+        List<Menu> parentNode = menus.stream().filter(menu -> menu.getPid() == 0).collect(Collectors.toList());
+        for (Menu menu : parentNode) {
+            menu.setChildren(menus.stream().filter(m -> menu.getId().equals(m.getPid())).collect(Collectors.toList()));
+        }
+        List<Menu> mergedMenu = new ArrayList<>();
+        //获取父菜单
+        for (Menu menu : menus) {
+            if (menu.getPid() == 0) {
+                mergedMenu.add(menu);
+            }
+        }
+
+        return mergedMenu;
     }
 }

@@ -55,4 +55,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return null;
         }
     }
+
+    @Override
+    public User getUser(String username) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", username);
+        return userService.getOne(queryWrapper);
+    }
 }
