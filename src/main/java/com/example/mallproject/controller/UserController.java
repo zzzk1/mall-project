@@ -41,15 +41,13 @@ public class UserController {
         ValidatorUtils.checkNull(userDTO, "user");
         ValidatorUtils.checkNull(userDTO.getUsername(), "username");
         ValidatorUtils.checkNull(userDTO.getPassword(), "password");
-
-        String token = JwtUtil.sign(userDTO.getUsername(),userDTO.getPassword());
-        if (token != null) {
-            User loginUser = userService.getUser(userDTO.getUsername());
-            setLoginUserInfo(loginUser, userDTO, token);
-            return Result.Success(userDTO);
-        } else {
+        User loginUser = userService.login(userDTO);
+        if (loginUser == null) {
             return Result.loginFailed();
         }
+        String token = JwtUtil.sign(userDTO.getUsername(),userDTO.getPassword());
+        setLoginUserInfo(loginUser, userDTO, token);
+        return Result.Success(userDTO, "登录成功");
     }
 
     @PostMapping("/logout")
@@ -67,7 +65,7 @@ public class UserController {
         String token = JwtUtil.sign(userDTO.getUsername(),userDTO.getPassword());
         if (token != null) {
             setLoginUserInfo(loginUser, userDTO, token);
-            return Result.Success(userDTO);
+            return Result.Success(userDTO, "注册成功");
         } else {
             return Result.registerFailed();
         }
@@ -120,9 +118,9 @@ public class UserController {
     @Autowired
     private UserDTOService userDTOService;
     private List<Menu> getAllMenu(String role) {
-       List<Integer> ids = userDTOService.getLoginUserMenuIds(role);
-       List<Menu> menus = menuService.listByIds(ids);
-       return mergedMenus(menus);
+        List<Integer> ids = userDTOService.getLoginUserMenuIds(role);
+        List<Menu> menus = menuService.listByIds(ids);
+        return mergedMenus(menus);
     }
 
     private List<Menu> mergedMenus(List<Menu> menus) {
