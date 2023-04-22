@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -37,20 +38,32 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Autowired
     private RoleMenuService roleMenuService;
+    @Autowired
+    private MenuService menuService;
     @Override
     public Boolean updateRoleMenuInfo(int rid, List<Integer> menusId) {
         roleMenuService.deleteById(rid);
-        for (Integer menuId : menusId) {
+        HashSet<Integer> set = new HashSet<>(menusId);
+        List<Menu> menus = menuService.listByIds(menusId);
+        for (Menu menu : menus) {
+            if (!set.contains(menu.getPid()) && menu.getPid() != 0) {
+                set.add(menu.getPid());
+            }
+        }
+
+        List<RoleMenu> roleMenus = new ArrayList<>();
+        for (Integer menuId : set) {
             RoleMenu roleMenu = new RoleMenu();
             roleMenu.setRoleId(rid);
             roleMenu.setMenuId(menuId);
-            roleMenuService.saveOrUpdate(roleMenu);
+            roleMenus.add(roleMenu);
         }
-        return true;
+        return roleMenuService.saveOrUpdateBatch(roleMenus);
     }
 
     @Override
     public List<Integer> getMenusById(int rid) {
         return roleMenuService.getMenusById(rid);
     }
+
 }
