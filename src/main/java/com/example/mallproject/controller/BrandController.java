@@ -3,10 +3,8 @@ package com.example.mallproject.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.common.api.Result;
-import com.example.mallproject.entity.Brand;
 import com.example.mallproject.entity.SpuInfo;
 import com.example.mallproject.service.BrandService;
-import com.example.mallproject.service.SpuInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +21,6 @@ import org.springframework.web.bind.annotation.*;
 public class BrandController {
     @Autowired
     private BrandService brandService;
-    @Autowired
-    private SpuInfoService spuInfoService;
 
     @GetMapping
     public Result<Page<SpuInfo>> getSpuByBrandId(@RequestParam(value = "id", defaultValue = "2") int id,

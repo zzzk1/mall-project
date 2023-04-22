@@ -5,8 +5,6 @@ import com.example.mallproject.entity.Brand;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.mallproject.entity.SpuInfo;
 
-import java.util.List;
-
 /**
  * <p>
  *  服务类

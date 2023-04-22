@@ -1,6 +1,5 @@
 package com.example.mallproject.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.Brand;
 import com.example.mallproject.entity.SpuInfo;

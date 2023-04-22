@@ -1,7 +1,6 @@
 package com.example.mallproject;
 
-import com.example.mallproject.controller.dto.UserDTO;
-import com.example.mallproject.entity.User;
+import com.example.mallproject.entity.dto.UserDTO;
 import com.example.mallproject.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

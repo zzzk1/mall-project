@@ -1,10 +1,8 @@
 package com.example.mallproject.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.mallproject.entity.Menu;
 import com.example.mallproject.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.mallproject.entity.User;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.mallproject.controller.dto;
+package com.example.mallproject.entity.dto;
 
 import com.example.mallproject.entity.Menu;
 import lombok.Data;

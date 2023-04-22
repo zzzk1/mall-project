@@ -1,14 +1,6 @@
 package com.example.mallproject.config;
 
-import cn.hutool.core.util.StrUtil;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.mallproject.common.Exception.BizException;
-import com.example.mallproject.common.api.ResultCode;
 import com.example.mallproject.common.utils.JwtUtil;
 import com.example.mallproject.entity.User;
 import com.example.mallproject.service.UserService;

@@ -36,16 +36,21 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         return roleMapper.selectPage(new Page<>(pageNum, pageSize), queryWrapper);
     }
 
+    /**
+     * @use 更新角色与菜单的关系
+     */
     @Autowired
     private RoleMenuService roleMenuService;
     @Autowired
     private MenuService menuService;
     @Override
     public Boolean updateRoleMenuInfo(int rid, List<Integer> menusId) {
+        //清除所有绑定,重新绑定
         roleMenuService.deleteById(rid);
         HashSet<Integer> set = new HashSet<>(menusId);
         List<Menu> menus = menuService.listByIds(menusId);
         for (Menu menu : menus) {
+        //菜单id中的菜单父菜单不存在时,为其新建一个父菜单
             if (!set.contains(menu.getPid()) && menu.getPid() != 0) {
                 set.add(menu.getPid());
             }

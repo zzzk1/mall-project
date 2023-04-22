@@ -22,6 +22,7 @@ import java.util.List;
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements DictService {
     @Autowired
     private DictMapper dictMapper;
+
     @Override
     public List<Dict> getAll(String type) {
         QueryWrapper<Dict> queryWrapper = new QueryWrapper<Dict>().eq("type", type);

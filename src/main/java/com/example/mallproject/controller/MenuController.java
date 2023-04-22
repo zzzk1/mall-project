@@ -1,7 +1,6 @@
 package com.example.mallproject.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mallproject.common.api.Result;
 import com.example.mallproject.common.utils.ValidatorUtils;
 import com.example.mallproject.entity.Dict;
@@ -30,11 +29,12 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    /**
+     * @return 父节点
+     */
     @GetMapping
     public Result<List<Menu>> getAll(@RequestParam(defaultValue = "") String name) {
-        QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("name", name);
-        List<Menu> list = menuService.list(queryWrapper);
+        List<Menu> list = menuService.getAll(name);
         List<Menu> parentNode = list.stream().filter(menu -> menu.getPid() == 0).collect(Collectors.toList());
         for (Menu menu : parentNode) {
             menu.setChildren(list.stream().filter(m -> menu.getId().equals(m.getPid())).collect(Collectors.toList()));
@@ -51,6 +51,7 @@ public class MenuController {
     public Result<Stream<Integer>> getMenuIds() {
         return Result.Success(menuService.list().stream().map(Menu::getId));
     }
+
     @Autowired
     private DictService dictService;
     @GetMapping("/icons")
@@ -69,6 +70,7 @@ public class MenuController {
     public Result<Boolean> deleteBatchId(@RequestBody List<Long> ids) {
         return Result.Success(menuService.removeBatchByIds(ids));
     }
+
     @DeleteMapping(("{id}"))
     public Result<Boolean> delete(@PathVariable long id) {
         return Result.Success(menuService.removeById(id));

@@ -2,7 +2,6 @@ package com.example.mallproject.service;
 
 import com.example.mallproject.entity.RoleMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.mallproject.mapper.RoleMenuMapper;
 
 import java.util.List;
 

@@ -2,15 +2,15 @@ package com.example.mallproject.common.api;
 
 import lombok.Data;
 
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * @author zzzk1
+ */
 @Data
 public class Result<T> {
     private long code;
     private String message;
     private T data;
-    protected Result(){};
+    protected Result(){}
 
     public Result(long code, String message, T data) {
         this.code = code;

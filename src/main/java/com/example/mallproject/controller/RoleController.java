@@ -4,7 +4,6 @@ package com.example.mallproject.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.common.api.Result;
 import com.example.mallproject.common.utils.ValidatorUtils;
-import com.example.mallproject.entity.Menu;
 import com.example.mallproject.entity.Role;
 import com.example.mallproject.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,6 @@ public class RoleController {
         return Result.Success(roleService.selectAll(pageNum, pageSize, name));
     }
 
-    //新增或修改
     @PostMapping
     public Result<Boolean> edit(@RequestBody Role role) {
         ValidatorUtils.checkNull(role, "role");

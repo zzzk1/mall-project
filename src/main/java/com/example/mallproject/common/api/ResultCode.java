@@ -1,5 +1,9 @@
 package com.example.mallproject.common.api;
 
+/**
+ * @author zzzk1
+ */
+
 public enum ResultCode implements IerrorCode{
 
     SUCCESS(200, "操作成功"),
@@ -12,7 +16,7 @@ public enum ResultCode implements IerrorCode{
     private long code;
     private String message;
 
-    private ResultCode(long code, String message) {
+    ResultCode(long code, String message) {
         this.code = code;
         this.message = message;
     }

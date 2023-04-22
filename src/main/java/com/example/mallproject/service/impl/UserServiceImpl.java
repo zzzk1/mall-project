@@ -2,7 +2,7 @@ package com.example.mallproject.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.mallproject.controller.dto.UserDTO;
+import com.example.mallproject.entity.dto.UserDTO;
 import com.example.mallproject.entity.User;
 import com.example.mallproject.mapper.UserMapper;
 import com.example.mallproject.service.UserService;
@@ -26,7 +26,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Page<User> selectAll(int curr, int size, String name) {
         Page<User> page = new Page<>(curr,size);
-        QueryWrapper queryWrapper = new QueryWrapper<User>().like("username", name);
+        QueryWrapper<User> queryWrapper = new QueryWrapper<User>().like("username", name);
         return userMapper.selectPage(page, queryWrapper);
     }
 
