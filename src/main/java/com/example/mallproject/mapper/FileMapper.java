@@ -2,6 +2,7 @@ package com.example.mallproject.mapper;
 
 import com.example.mallproject.entity.FileDB;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,6 +16,6 @@ import org.apache.ibatis.annotations.Select;
  */
 @Mapper
 public interface FileMapper extends BaseMapper<FileDB> {
-    @Select("select * from sys_file where md5=#{md5}")
+    @Select("select * from sys_file where md5 = #{md5} and deleted=0")
     public FileDB getFileDB(String md5);
 }

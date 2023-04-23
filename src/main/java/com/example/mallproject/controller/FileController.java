@@ -10,14 +10,12 @@ import com.example.mallproject.entity.FileDB;
 import com.example.mallproject.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * <p>
@@ -69,5 +67,35 @@ public class FileController {
         file.transferTo(uploadFile);
         fileService.saveFileDB(originalFilename, type, size / 1024, url, md5);
         return Result.Success(null, "上传成功");
+    }
+
+    @DeleteMapping("{id}")
+    public Result<Integer> deleteFileDB(@PathVariable Integer id) {
+        if (fileService.deleteFileDB(id) == 1) {
+            return Result.Success(1, "删除成功");
+        } else {
+            return Result.Failed(0,"删除失败");
+        }
+    }
+
+    @PostMapping("/update")
+    public Result<Boolean> updateFileDB(@RequestBody FileDB file) {
+        return Result.Success(fileService.updateById(file));
+    }
+
+    @PostMapping("/del/batch")
+    public Result<Integer> deleteBatch(@RequestBody List<Integer> ids) {
+        // select * from sys_file where id in (id,id,id...)
+        for (Integer id : ids) {
+            fileService.deleteFileDB(id);
+        }
+        return Result.Success(1, "批量删除成功");
+    }
+
+    @GetMapping("/page")
+    public Result findPage(@RequestParam(defaultValue = "1") Integer pageNum,
+                           @RequestParam(defaultValue = "10") Integer pageSize,
+                           @RequestParam(defaultValue = "") String name) {
+        return Result.Success(fileService.getPage(pageNum, pageSize, name));
     }
 }

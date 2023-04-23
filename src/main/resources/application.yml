@@ -11,11 +11,17 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: com.example.mallproject.pojo.User
   mapper-locations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+    db-config:
+      # 1 代表已删除，不配置默认是1，也可修改配置
+      logic-delete-value: 1
+      # 0 代表未删除，不配置默认是0，也可修改配置
+      logic-not-delete-value: 0
 server:
   port: 9090
 files:
   upload:
-    path: D:/project/mall-project/image
+    path: D:/project/mall-project/src/main/resources/static
 aliyun:
   oss:
     # oss对外服务的访问域名
@@ -32,6 +38,5 @@ aliyun:
     # 上传文件夹路径前缀
     dir:
       prefix: images/
-
 
 

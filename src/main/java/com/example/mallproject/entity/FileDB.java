@@ -1,6 +1,7 @@
 package com.example.mallproject.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +23,8 @@ public class FileDB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
 
     /**
      * 文件名称
@@ -47,7 +49,8 @@ public class FileDB implements Serializable {
     /**
      * 是否删除
      */
-    private Integer delete;
+    @TableLogic
+    private Integer deleted;
 
     private Integer enable;
 

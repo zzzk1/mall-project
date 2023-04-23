@@ -1,5 +1,5 @@
 package com.example.mallproject.service;
-
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.mallproject.entity.FileDB;
 
@@ -14,4 +14,6 @@ import com.example.mallproject.entity.FileDB;
 public interface FileService extends IService<FileDB> {
     Boolean saveFileDB(String name, String type, long size, String url, String md5);
     FileDB getFileDB(String md5);
+    int deleteFileDB(Integer id);
+    Page<FileDB> getPage(int pageNum, int pageSize, String name);
 }
