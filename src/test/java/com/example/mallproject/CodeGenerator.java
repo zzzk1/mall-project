@@ -41,7 +41,7 @@ public class CodeGenerator {
                 })
                 //策略配置
                 .strategyConfig(builder -> {
-                    builder.addInclude("sys_dict") // 设置需要生成的表名
+                    builder.addInclude("sys_file") // 设置需要生成的表名
                             .addTablePrefix("sys_")// 设置过滤表前缀
                             .serviceBuilder() //开启service策略配置
                             .formatServiceFileName("%sService") //取消Service前的I

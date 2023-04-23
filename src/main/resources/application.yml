@@ -13,5 +13,25 @@ mybatis-plus:
   mapper-locations: classpath*:mapper/**/*Mapper.xml
 server:
   port: 9090
+files:
+  upload:
+    path: D:/project/mall-project/image
+aliyun:
+  oss:
+    # oss对外服务的访问域名
+    endpoint: oss-cn-hongkong.aliyuncs.com
+
+    accessKeyId: LTAI5tDm8yJFqB4bRMwP7nUR
+    # 访问身份验证中用到用户标识
+    # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
+    accessKeySecret: KCxJLisKVdIRjdhYHXk7Jlzv6Qp2Ke
+    # oss的存储空间
+    bucketName: zzzk1-mall-project
+    # 上传文件大小(M)
+    maxSize: 3
+    # 上传文件夹路径前缀
+    dir:
+      prefix: images/
+
 
 

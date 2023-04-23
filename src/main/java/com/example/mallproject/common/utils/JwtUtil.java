@@ -13,7 +13,7 @@ import java.util.Date;
 public class JwtUtil {
 
     // Token过期时间30分钟
-    public static final long EXPIRE_TIME = 30 * 60 * 1000;
+    public static final long EXPIRE_TIME = 60 * 60 * 1000;
 
     public static boolean verify(String token, String username, String secret) {
         try {
