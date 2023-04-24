@@ -52,7 +52,7 @@ public class FileDB implements Serializable {
     @TableLogic
     private Integer deleted;
 
-    private Integer enable;
+    private Boolean enable;
 
     /**
      * md5
