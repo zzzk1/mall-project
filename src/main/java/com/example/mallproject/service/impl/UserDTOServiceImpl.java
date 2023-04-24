@@ -40,8 +40,10 @@ public class UserDTOServiceImpl implements UserDTOService {
     @Override
     public void setLoginUserInfo(User user, UserDTO userDTO, String token) {
         userDTO.setUsername(user.getUsername());
+        userDTO.setNickname(user.getNickname());
         userDTO.setPassword(null);
         userDTO.setToken(token);
+        userDTO.setAvatarUrl(user.getAvatarUrl());
         userDTO.setRole(user.getRole());
         userDTO.setMenus(getAllMenu(userDTO.getRole()));
     }

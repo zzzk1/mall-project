@@ -32,7 +32,7 @@ public class FileController {
     @PostMapping("/upload")
     public Result<Boolean> upload(@RequestParam MultipartFile file) throws IOException {
         Boolean result = fileDBUtil.upload(file);
-        if (result == false) {
+        if (!result) {
             return Result.Failed(result, "上传失败");
         }
         return Result.Success(result, "上传成功");
@@ -59,7 +59,6 @@ public class FileController {
 
     @PostMapping("/del/batch")
     public Result<Integer> deleteBatch(@RequestBody List<Integer> ids) {
-        // select * from sys_file where id in (id,id,id...)
         for (Integer id : ids) {
             fileService.deleteFileDB(id);
         }
