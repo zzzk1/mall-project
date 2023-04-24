@@ -21,7 +21,7 @@ server:
   port: 9090
 files:
   upload:
-    path: D:/project/mall-project/src/main/resources/static
+    path: D:\project\mall-project\src\main\resources\images\
 aliyun:
   oss:
     # oss对外服务的访问域名
@@ -38,5 +38,3 @@ aliyun:
     # 上传文件夹路径前缀
     dir:
       prefix: images/
-
-
