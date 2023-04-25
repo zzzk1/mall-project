@@ -1,8 +1,10 @@
 package com.example.mallproject.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.common.api.Result;
 import com.example.mallproject.common.utils.OssUtils;
+import com.example.mallproject.entity.FileDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

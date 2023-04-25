@@ -3,6 +3,7 @@ package com.example.mallproject.controller;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.common.api.Result;
 import com.example.mallproject.common.utils.JwtUtil;
@@ -94,10 +95,17 @@ public class UserController {
      *
      * @use 根据token获取登录用户信息
      */
-    @GetMapping("/username/{token}")
-    public Result<User> findOne(@PathVariable String token) {
-        DecodedJWT jwt = JWT.decode(token);
-        String username = jwt.getClaim("username").asString();
-        return Result.Success(userService.getUser(username));
+//    @GetMapping("/username/{token}")
+//    public Result<User> findOne(@PathVariable String token) {
+//        DecodedJWT jwt = JWT.decode(token);
+//        String username = jwt.getClaim("username").asString();
+//        return Result.Success(userService.getUser(username));
+//    }
+
+    @GetMapping("/username/{username}")
+    public Result findByUsername(@PathVariable String username) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", username);
+        return Result.Success(userService.getOne(queryWrapper));
     }
 }

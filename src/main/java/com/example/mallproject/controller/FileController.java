@@ -30,12 +30,9 @@ public class FileController {
     @Autowired
     private FileDBUtil fileDBUtil;
     @PostMapping("/upload")
-    public Result<Boolean> upload(@RequestParam MultipartFile file) throws IOException {
-        Boolean result = fileDBUtil.upload(file);
-        if (!result) {
-            return Result.Failed(result, "上传失败");
-        }
-        return Result.Success(result, "上传成功");
+    public Result<String> upload(@RequestParam MultipartFile file) throws IOException {
+        String url = fileDBUtil.upload(file);
+        return Result.Success(url, "上传成功");
     }
 
     @GetMapping("/{fileUUID}")

@@ -25,7 +25,7 @@ public class FileDBUtil {
     @Autowired
     private FileService fileService;
 
-    public Boolean upload(MultipartFile file) throws IOException {
+    public String upload(MultipartFile file) throws IOException {
         String originalFilename = file.getOriginalFilename();
         String type = FileUtil.extName(originalFilename);
         long size = file.getSize();
@@ -56,7 +56,8 @@ public class FileDBUtil {
         }
         file.transferTo(uploadFile);
 
-        return fileService.saveFileDB(originalFilename, type, size / 1024, url, md5);
+        fileService.saveFileDB(originalFilename, type, size / 1024, url, md5);
+        return url;
     }
 
     public void downLoad(String fileUUID, HttpServletResponse response) throws IOException {
