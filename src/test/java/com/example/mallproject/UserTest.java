@@ -24,4 +24,10 @@ public class UserTest {
     void page() {
         service.selectAll(1, 5, "a");
     }
+
+    @Test
+    void test() {
+
+        System.out.println(0.2 * 0.2);
+    }
 }
