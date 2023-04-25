@@ -42,7 +42,7 @@ public class Category implements Serializable {
     /**
      * 父分类id
      */
-    private Long parentCid;
+    private Long pid;
 
     /**
      * 是否显示[0-不显示，1显示]

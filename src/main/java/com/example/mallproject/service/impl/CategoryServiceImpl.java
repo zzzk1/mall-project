@@ -1,6 +1,7 @@
 package com.example.mallproject.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.Category;
 import com.example.mallproject.mapper.CategoryMapper;
 import com.example.mallproject.service.CategoryService;
@@ -26,31 +27,38 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Autowired
     private CategoryService categoryService;
 
+
     @Override
-    public List<Category> getAllCategory() {
-        List<Category> data = categoryService.list();
-        HashMap<Long, Category> map = new HashMap<>();
-
-        for (Category category : data) {
-            map.put(category.getId(), category);
-        }
-
-        List<Category> list = new ArrayList<>();
-        for (Category child : data) {
-            if (child.getParentCid() == 0) {
-                list.add(child);
-            } else {
-                Category parent = map.get(child.getParentCid());
-                parent.getChildren().add(child);
-            }
-        }
-        return list;
+    public Page<Category> getPage(Integer pageNum, Integer pageSize, String name) {
+        Page<Category> page = new Page<>(pageNum, pageSize);
+        QueryWrapper<Category> categoryQueryWrapper = new QueryWrapper<>();
+        categoryQueryWrapper.like("name", name);
+        return categoryService.page(page, categoryQueryWrapper);
     }
 
     @Override
-    public List<Category> getCategoryByPid(Long pid) {
+    public List<Category> getAll(String name) {
         QueryWrapper<Category> categoryQueryWrapper = new QueryWrapper<>();
-        categoryQueryWrapper.eq("parent_cid", pid);
-        return categoryService.list(categoryQueryWrapper);
+        categoryQueryWrapper.like("name", name);
+        List<Category> categories = categoryService.list(categoryQueryWrapper);
+        return mergeCategory(categories);
+    }
+
+    private List<Category> mergeCategory(List<Category> categories) {
+        HashMap<Long, Category> hashMap = new HashMap<>();
+        for (Category category : categories) {
+            hashMap.put(category.getId(), category);
+        }
+
+        List<Category>mergeCategories = new ArrayList<>();
+        for (Category category : categories) {
+            if (category.getPid() == 0) {
+                mergeCategories.add(category);
+            } else {
+                Category parent = hashMap.get(category.getPid());
+                parent.getChildren().add(category);
+            }
+        }
+        return mergeCategories;
     }
 }

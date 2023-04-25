@@ -1,5 +1,6 @@
 package com.example.mallproject.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public interface CategoryService extends IService<Category> {
 
-    List<Category> getAllCategory();
+    Page<Category> getPage(Integer pageNum, Integer pageSize, String name);
 
-    List<Category> getCategoryByPid(Long pid);
+    List<Category> getAll(String name);
 }

@@ -1,17 +1,18 @@
 package com.example.mallproject.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.common.api.Result;
+import com.example.mallproject.common.utils.ValidatorUtils;
 import com.example.mallproject.entity.Category;
+import com.example.mallproject.entity.Menu;
 import com.example.mallproject.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * <p>
@@ -29,13 +30,43 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping
-    public Result<List<Category>> getAllCategory() {
-        return Result.Success(categoryService.getAllCategory(), "查询成功");
+    @GetMapping("/page")
+    public Result<Page<Category>> getPage(@RequestParam(defaultValue = "1") Integer pageNum,
+                                          @RequestParam(defaultValue = "10") Integer pageSize,
+                                          @RequestParam(defaultValue = "") String name) {
+        return Result.Success(categoryService.getPage(pageNum, pageSize, name), "查询成功");
     }
 
-    @GetMapping("{pid}")
-    public Result<List<Category>> getCategoryByPid(@PathVariable Long pid) {
-        return Result.Success(categoryService.getCategoryByPid(pid), "查询成功");
+    @GetMapping
+    public Result<List<Category>> getAll(@RequestParam(defaultValue = "") String name) {
+        return Result.Success(categoryService.getAll(name));
     }
+
+    @GetMapping("{id}")
+    public Result<Category> getMenu(@PathVariable int id) {
+        return Result.Success(categoryService.getById(id));
+    }
+
+    @GetMapping("ids")
+    public Result<Stream<Long>> getIds() {
+        return Result.Success(categoryService.list().stream().map(Category::getId));
+    }
+
+    @PostMapping
+    public Result<Boolean> edit(@RequestBody Category category) {
+        ValidatorUtils.checkNull(category, "category");
+        return Result.Success(categoryService.saveOrUpdate(category));
+    }
+
+    @PostMapping("/del/batch")
+    public Result<Boolean> deleteBatchId(@RequestBody List<Long> ids) {
+        return Result.Success(categoryService.removeBatchByIds(ids));
+    }
+
+    @DeleteMapping(("{id}"))
+    public Result<Boolean> delete(@PathVariable long id) {
+        return Result.Success(categoryService.removeById(id));
+    }
+
+
 }
