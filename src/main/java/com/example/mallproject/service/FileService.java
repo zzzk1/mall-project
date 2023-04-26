@@ -1,7 +1,10 @@
 package com.example.mallproject.service;
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.mallproject.entity.File;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.mallproject.entity.FileDB;
+
+import java.util.List;
 
 /**
  * <p>
@@ -9,11 +12,19 @@ import com.example.mallproject.entity.FileDB;
  * </p>
  *
  * @author zzzk1
- * @since 2023-04-23
+ * @since 2023-04-26
  */
-public interface FileService extends IService<FileDB> {
-    Boolean saveFileDB(String name, String type, long size, String url, String md5);
-    FileDB getFileDB(String md5);
-    int deleteFileDB(Integer id);
-    Page<FileDB> getPage(int pageNum, int pageSize, String name);
+public interface FileService extends IService<File> {
+
+    boolean save(String url);
+
+    Boolean remove(String fileUrl);
+
+    Boolean remove(List<Integer> ids);
+
+    int save(List<String> urls);
+
+    Page<File> getPage(Integer pageNum, Integer pageSize, String name);
+
+    List<String> getUrls(List<Integer> ids);
 }

@@ -3,13 +3,13 @@ package com.example.mallproject.common.utils;
 import cn.hutool.core.date.DateTime;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
-import com.example.mallproject.common.Exception.BizException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Component
@@ -28,7 +28,7 @@ public class OssUtils {
     private String bucketName;
 
     public String uploadOneFile(MultipartFile file) throws Exception {
-        if (!(file.getOriginalFilename().endsWith(".png")) && !(file.getOriginalFilename().endsWith(".jpg"))) {
+        if (!(Objects.requireNonNull(file.getOriginalFilename()).endsWith(".png")) && !(file.getOriginalFilename().endsWith(".jpg"))) {
             throw new Exception("文件类型错误，只能为png或者jpg");
         }
         // 创建OSSClient实例。
@@ -90,9 +90,9 @@ public class OssUtils {
 
         // 创建OSSClient实例。
         OSS ossClient = new OSSClientBuilder().build(endPoint, accessKeyId, secretAccessKey);
-        /** oss删除文件是根据文件完成路径删除的，但文件完整路径中不能包含Bucket名称。
-         * 比如文件路径为：http://edu-czf.oss-cn-guangzhou.aliyuncs.com/2022/08/abc.jpg",
-         * 则完整路径就是：2022/08/abc.jpg
+        /* oss删除文件是根据文件完成路径删除的，但文件完整路径中不能包含Bucket名称。
+          比如文件路径为：http://edu-czf.oss-cn-guangzhou.aliyuncs.com/2022/08/abc.jpg",
+          则完整路径就是：2022/08/abc.jpg
          */
         int begin = ("http://" + bucketName + "." + endPoint + "/").length(); //找到文件路径的开始下标
         String deleteUrl = fileUrl.substring(begin);
@@ -109,6 +109,32 @@ public class OssUtils {
                 ossClient.shutdown();
             }
         }
+    }
+
+    public boolean deleteFile(List<String> fileUrls) {
+
+        // 创建OSSClient实例。
+        OSS ossClient = new OSSClientBuilder().build(endPoint, accessKeyId, secretAccessKey);
+        /** oss删除文件是根据文件完成路径删除的，但文件完整路径中不能包含Bucket名称。
+         * 比如文件路径为：http://edu-czf.oss-cn-guangzhou.aliyuncs.com/2022/08/abc.jpg",
+         * 则完整路径就是：2022/08/abc.jpg
+         */
+        int begin = ("http://" + bucketName + "." + endPoint + "/").length(); //找到文件路径的开始下标
+        String deleteUrl;
+        for (String fileUrl : fileUrls) {
+            deleteUrl = fileUrl.substring(begin);
+            try {
+                // 删除文件请求
+                ossClient.deleteObject(bucketName, deleteUrl);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        if (ossClient != null) {
+            ossClient.shutdown();
+        }
+        return true;
     }
 
 }

@@ -1,10 +1,10 @@
 package com.example.mallproject.mapper;
 
-import com.example.mallproject.entity.FileDB;
+import com.example.mallproject.entity.File;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,10 +12,10 @@ import org.apache.ibatis.annotations.Select;
  * </p>
  *
  * @author zzzk1
- * @since 2023-04-23
+ * @since 2023-04-26
  */
 @Mapper
-public interface FileMapper extends BaseMapper<FileDB> {
-    @Select("select * from sys_file where md5 = #{md5} and deleted=0")
-    public FileDB getFileDB(String md5);
+public interface FileMapper extends BaseMapper<File> {
+    int saveByUrls(List<String> urls);
+    List<String> getUrls(List<Integer> ids);
 }
