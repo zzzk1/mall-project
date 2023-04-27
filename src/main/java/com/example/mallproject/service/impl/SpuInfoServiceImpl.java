@@ -9,6 +9,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
  * spu信息 服务实现类
@@ -28,5 +31,19 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo> impl
         QueryWrapper<SpuInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("brand_id", brandId);
         return spuInfoMapper.selectPage(page, queryWrapper.select("id", "spu_name"));
+    }
+
+    @Autowired
+    private SpuInfoService spuInfoService;
+    @Override
+    public List<Long> getIds(String spuName) {
+        QueryWrapper<SpuInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("spu_name", spuName);
+        List<SpuInfo> spuInfos = spuInfoService.list(queryWrapper);
+        List<Long> ids = new ArrayList<>();
+        for (SpuInfo spuInfo : spuInfos) {
+            ids.add(spuInfo.getId());
+        }
+        return ids;
     }
 }

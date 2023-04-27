@@ -4,6 +4,7 @@ package com.example.mallproject.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.common.api.Result;
 import com.example.mallproject.entity.Order;
+import com.example.mallproject.entity.dto.OrderDTO;
 import com.example.mallproject.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -44,5 +45,13 @@ public class OrderController {
     @PostMapping("/del/batch")
     public Result<Boolean> deleteByIds(@RequestBody List<Long> ids) {
         return Result.Success(orderService.removeBatchByIds(ids));
+    }
+
+    @GetMapping("/front/page/{username}")
+    public Result<Page<OrderDTO>> getFrontAll(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+                                              @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                              @RequestParam(value = "spuName", defaultValue = "") String spuName,
+                                              @PathVariable String username) {
+        return Result.Success(orderService.getPageBySpuName(pageNum, pageSize, spuName, username));
     }
 }

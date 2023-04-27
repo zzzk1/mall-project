@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.SpuInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * spu信息 服务类
@@ -14,4 +16,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SpuInfoService extends IService<SpuInfo> {
     Page<SpuInfo> getSpusByBrandId(int brandId, int curr, int size);
+    List<Long> getIds(String spuName);
+
 }

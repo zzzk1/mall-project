@@ -1,6 +1,7 @@
 package com.example.mallproject.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
@@ -42,7 +43,7 @@ public class Order implements Serializable {
 
     private Integer amount;
 
-    private Integer finish;
+    private Integer finished;
 
-
+    private Long uuid;
 }
