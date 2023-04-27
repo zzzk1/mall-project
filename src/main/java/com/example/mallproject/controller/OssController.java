@@ -31,7 +31,7 @@ public class OssController {
     public Result<String> uploadFile(@RequestBody MultipartFile file) throws Exception {
         //返回上传oss的url
         String url =  ossUtils.uploadOneFile(file);
-        fileService.save(url);
+        fileService.save(file, url);
         return Result.Success(url, "上传成功");
     }
 
@@ -39,8 +39,7 @@ public class OssController {
     public Result<List<String>> uploadArrayFile(@RequestBody MultipartFile[] files) {
         //返回上传oss的url
         List<String> urls = ossUtils.uploadArrayFile(files);
-        int counts = fileService.save(urls);
-        System.out.println(counts);
+        fileService.save(files, urls);
         return Result.Success(urls);
     }
 

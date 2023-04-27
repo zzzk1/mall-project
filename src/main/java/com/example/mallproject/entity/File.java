@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zzzk1
@@ -27,7 +27,11 @@ public class File implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    private String name;
+
     private String url;
 
+    private Long size;
 
+    private String type;
 }

@@ -3,6 +3,7 @@ package com.example.mallproject.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.File;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,13 +17,15 @@ import java.util.List;
  */
 public interface FileService extends IService<File> {
 
-    boolean save(String url);
+    Boolean save(MultipartFile file, String url);
+
+    Boolean save(MultipartFile[] files, List<String> urls);
 
     Boolean remove(String fileUrl);
 
     Boolean remove(List<Integer> ids);
 
-    int save(List<String> urls);
+
 
     Page<File> getPage(Integer pageNum, Integer pageSize, String name);
 

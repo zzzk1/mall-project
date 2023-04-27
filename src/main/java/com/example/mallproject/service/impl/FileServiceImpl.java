@@ -2,13 +2,16 @@ package com.example.mallproject.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.mallproject.common.utils.FileUtil;
 import com.example.mallproject.entity.File;
 import com.example.mallproject.mapper.FileMapper;
 import com.example.mallproject.service.FileService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,11 +33,21 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements Fi
         return fileService.page(page);
     }
 
+
     @Override
-    public boolean save(String url) {
-        File file = new File();
-        file.setUrl(url);
-        return fileService.save(file);
+    public Boolean save(MultipartFile file, String url) {
+        File DBFile = FileUtil.buildDBFile(file, url);
+        return fileService.save(DBFile);
+    }
+
+    @Override
+    public Boolean save(MultipartFile[] files, List<String> urls) {
+        List<File> fileList = new ArrayList<>();
+        for (int i = 0; i < urls.size(); i++) {
+            File DBFile = FileUtil.buildDBFile(files[i], urls.get(i));
+            fileList.add(DBFile);
+        }
+        return fileService.saveBatch(fileList);
     }
 
     @Override
@@ -51,11 +64,6 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements Fi
 
     @Autowired
     private FileMapper fileMapper;
-    @Override
-    public int save(List<String> urls) {
-        return fileMapper.saveByUrls(urls);
-    }
-
     @Override
     public List<String> getUrls(List<Integer> ids) {
         return fileMapper.getUrls(ids);

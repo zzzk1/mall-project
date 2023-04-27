@@ -28,9 +28,6 @@ public class OssUtils {
     private String bucketName;
 
     public String uploadOneFile(MultipartFile file) throws Exception {
-        if (!(Objects.requireNonNull(file.getOriginalFilename()).endsWith(".png")) && !(file.getOriginalFilename().endsWith(".jpg"))) {
-            throw new Exception("文件类型错误，只能为png或者jpg");
-        }
         // 创建OSSClient实例。
         OSS ossClient = new OSSClientBuilder().build(endPoint, accessKeyId, secretAccessKey);
         //设置文件名
