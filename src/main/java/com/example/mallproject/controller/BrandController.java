@@ -28,6 +28,4 @@ public class BrandController {
                                                  @RequestParam(value = "size", defaultValue = "5") int size) {
         return Result.Success(brandService.getSpuInfo(id, curr, size));
     }
-
-
 }

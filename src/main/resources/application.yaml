@@ -19,9 +19,6 @@ mybatis-plus:
       logic-not-delete-value: 0
 server:
   port: 9090
-files:
-  upload:
-    path: D:\project\mall-project\src\main\resources\images\
 aliyun:
   oss:
     # oss对外服务的访问域名
