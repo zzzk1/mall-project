@@ -1,4 +1,7 @@
 spring:
+  redis:
+    host: 192.168.80.128
+    port: 6379
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mall
@@ -35,3 +38,4 @@ aliyun:
     # 上传文件夹路径前缀
     dir:
       prefix: images/
+
