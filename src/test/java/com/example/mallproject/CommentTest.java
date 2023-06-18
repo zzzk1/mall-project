@@ -1,5 +1,6 @@
 package com.example.mallproject;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.Comment;
 import com.example.mallproject.service.CommentService;
 import org.junit.jupiter.api.Test;
@@ -29,5 +30,11 @@ public class CommentTest {
     public void delete() {
         Long commentId = 104L;
         commentService.delete(commentId);
+    }
+
+    @Test
+    public void page() {
+        Page<Comment> page = commentService.getPage(1,5);
+        System.out.println(page);
     }
 }

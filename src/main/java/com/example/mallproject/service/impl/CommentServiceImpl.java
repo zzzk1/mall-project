@@ -1,6 +1,8 @@
 package com.example.mallproject.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.mallproject.common.utils.PageUtil;
 import com.example.mallproject.common.utils.ValidatorUtils;
 import com.example.mallproject.entity.Comment;
 import com.example.mallproject.entity.UserComment;
@@ -11,6 +13,8 @@ import com.example.mallproject.service.UserCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -55,5 +59,37 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         List<Long> ids = userCommentService.getList(userId);
         ValidatorUtils.checkNull(ids, "用户评论数");
         return commentService.listByIds(ids);
+    }
+
+    @Override
+    public Page<Comment> getPage(Integer curr, Integer size) {
+        ValidatorUtils.checkNull(curr, "curr");
+        ValidatorUtils.checkNull(size, "size");
+
+        List<Comment> result = sortComment(commentService.list());
+        ValidatorUtils.checkNull(result, "result");
+        return PageUtil.listToPage(result, curr, size);
+    }
+
+    private List<Comment> sortComment(List<Comment> comments) {
+        ValidatorUtils.checkNull(comments, "comments");
+
+        HashMap<Long, Comment> map = new HashMap<>();
+        for (Comment comment : comments) {
+            map.put(comment.getId(), comment);
+        }
+
+        List<Comment> result = new ArrayList<>();
+
+        for (Comment comment : comments) {
+            if (comment.getPid() == 0) {
+                result.add(comment);
+            } else {
+                Comment parent = map.get(comment.getPid());
+                parent.getChildren().add(comment);
+            }
+        }
+
+        return result;
     }
 }

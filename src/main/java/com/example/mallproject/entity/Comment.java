@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -32,6 +33,8 @@ public class Comment implements Serializable {
     private Long id;
 
     private Long pid;
+
+    private Integer level;
     /**
      * 评论内容
      */
@@ -40,5 +43,5 @@ public class Comment implements Serializable {
     private LocalDateTime createTime;
 
     @TableField(exist = false)
-    private List<Comment> children;
+    private List<Comment> children = new ArrayList<>();
 }
