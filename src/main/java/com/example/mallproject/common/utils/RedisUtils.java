@@ -12,16 +12,17 @@ public class RedisUtils {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
-    public String get(final String key) {
-        return (String) redisTemplate.opsForValue().get(key);
+    public Object get(final String key) {
+        return redisTemplate.opsForValue().get(key);
     }
 
     /**
      * 写入缓存
      */
-    public boolean set(final String key, String value) {
+    public boolean set(final String key, Object value) {
         boolean result = false;
         try {
+
             redisTemplate.opsForValue().set(key, value);
             result = true;
         } catch (Exception e) {

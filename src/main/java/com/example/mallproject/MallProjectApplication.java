@@ -5,6 +5,9 @@ import com.example.mallproject.common.log.EnableApiTimeLog;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author zzzk1
+ */
 @SpringBootApplication
 //@EnableApiTimeLog
 @EnableApiLog
