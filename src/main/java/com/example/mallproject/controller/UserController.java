@@ -1,14 +1,19 @@
 package com.example.mallproject.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.mallproject.common.api.JwtIgnore;
 import com.example.mallproject.common.api.Result;
-import com.example.mallproject.common.utils.JwtUtil;
+import com.example.mallproject.common.utils.JwtTokenUtil;
+import com.example.mallproject.common.utils.ThreadLocalUtil;
 import com.example.mallproject.common.utils.ValidatorUtils;
-import com.example.mallproject.entity.dto.UserDTO;
 import com.example.mallproject.entity.User;
-import com.example.mallproject.service.UserDTOService;
+import com.example.mallproject.entity.dto.UserDTO;
+import com.example.mallproject.entity.vo.UserVO;
+import com.example.mallproject.service.UserVOService;
 import com.example.mallproject.service.UserService;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -24,44 +29,16 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final UserDTOService userDtoService;
 
-    public UserController(UserService userService, UserDTOService userDtoService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userDtoService = userDtoService;
     }
 
+    @JwtIgnore
     @PostMapping("/login")
-    public Result<UserDTO> login(@RequestBody UserDTO userDTO) {
-        ValidatorUtils.checkNull(userDTO, "user");
-        ValidatorUtils.checkNull(userDTO.getUsername(), "username");
-        ValidatorUtils.checkNull(userDTO.getPassword(), "password");
-
-        User loginUser = userService.login(userDTO);
-        if (loginUser == null) {
-            return Result.loginFailed();
-        }
-
-        String token = JwtUtil.sign(userDTO.getUsername(),userDTO.getPassword());
-        userDtoService.setLoginUserInfo(loginUser, userDTO, token);
-        return Result.Success(userDTO, "登录成功");
-    }
-
-    @PostMapping("/register")
-    public Result<UserDTO> enroll(@RequestBody UserDTO userDTO) {
-        ValidatorUtils.checkNull(userDTO, "userDTO");
-        ValidatorUtils.checkNull(userDTO.getUsername(), "username");
-        ValidatorUtils.checkNull(userDTO.getPassword(), "password");
-
-        userDTO.setRole("USER");
-        User loginUser = userService.enroll(userDTO);
-        String token = JwtUtil.sign(userDTO.getUsername(),userDTO.getPassword());
-        if (token != null) {
-            userDtoService.setLoginUserInfo(loginUser, userDTO, token);
-            return Result.Success(userDTO, "注册成功");
-        } else {
-            return Result.registerFailed();
-        }
+    public Result<UserVO> login(@RequestBody UserDTO userDTO) {
+        UserVO userVO = userService.login(userDTO);
+        return Result.Success(userVO);
     }
 
     @GetMapping("/page")
@@ -87,16 +64,6 @@ public class UserController {
         return Result.Success(userService.removeBatchByIds(ids));
     }
 
-    /**
-     *
-     * @use 根据token获取登录用户信息
-     */
-//    @GetMapping("/username/{token}")
-//    public Result<User> findOne(@PathVariable String token) {
-//        DecodedJWT jwt = JWT.decode(token);
-//        String username = jwt.getClaim("username").asString();
-//        return Result.Success(userService.getUser(username));
-//    }
 
     @GetMapping("/username/{username}")
     public Result findByUsername(@PathVariable String username) {

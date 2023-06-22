@@ -3,7 +3,7 @@ package com.example.mallproject.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.Order;
-import com.example.mallproject.entity.dto.OrderDTO;
+import com.example.mallproject.entity.vo.OrderVO;
 import com.example.mallproject.mapper.OrderMapper;
 import com.example.mallproject.service.OrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -35,12 +35,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Autowired
     private SpuInfoService spuInfoService;
     @Override
-    public Page<OrderDTO> getPageBySpuName(int pageNum, int pageSize, String spuName, String username) {
+    public Page<OrderVO> getPageBySpuName(int pageNum, int pageSize, String spuName, String username) {
         List<Long> ids = spuInfoService.getIds(spuName);
-        List<OrderDTO> orderDTOS = orderMapper.selectOrderDTO(ids, username);
-        Page<OrderDTO> page = new Page<>(pageNum, pageSize);
-        page.setRecords(orderDTOS);
-        page.setSize(orderDTOS.size());
+        List<OrderVO> orderVOS = orderMapper.selectOrderDTO(ids, username);
+        Page<OrderVO> page = new Page<>(pageNum, pageSize);
+        page.setRecords(orderVOS);
+        page.setSize(orderVOS.size());
         return page;
     }
 

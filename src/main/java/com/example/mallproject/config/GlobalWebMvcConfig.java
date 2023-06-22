@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author zzzk1
  */
 @Configuration
-public class InterceptorConfig implements WebMvcConfigurer {
+public class GlobalWebMvcConfig implements WebMvcConfigurer {
 
 
     @Override
@@ -22,16 +22,14 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .allowedMethods("*")
                .maxAge(3600L);
    }
+
+    /**
+     * 添加拦截器
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authenticationInterceptor())
-                .addPathPatterns("/**")  // 拦截所有请求，通过判断token是否合法来决定是否需要登录
-                .excludePathPatterns("/user/login", "/user/register", "/**/export", "/**/import", "/file/**");
+        //添加权限拦截器
+        registry.addInterceptor(new AuthenticationInterceptor()).addPathPatterns("/**").excludePathPatterns("/static/**","/login");
     }
-
-    @Bean
-    public JwtInterceptor authenticationInterceptor() {
-        return new JwtInterceptor();
-    }
-
 }

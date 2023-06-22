@@ -1,11 +1,11 @@
-package com.example.mallproject.entity.dto;
+package com.example.mallproject.entity.vo;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class OrderDTO {
+public class OrderVO {
     private String spuName;
 
     private String address;

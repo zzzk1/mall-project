@@ -1,6 +1,6 @@
 package com.example.mallproject;
 
-import com.example.mallproject.entity.dto.OrderDTO;
+import com.example.mallproject.entity.vo.OrderVO;
 import com.example.mallproject.mapper.OrderMapper;
 import com.example.mallproject.service.OrderService;
 import org.junit.jupiter.api.Test;
@@ -34,9 +34,9 @@ public class OrderTest {
         ids.add(4L);
         ids.add(5L);
         ids.add(6L);
-        List<OrderDTO> orderDTOS = orderMapper.selectOrderDTO(ids, "Joseph White");
-        for (OrderDTO orderDTO : orderDTOS) {
-            System.out.println(orderDTO);
+        List<OrderVO> orderVOS = orderMapper.selectOrderDTO(ids, "Joseph White");
+        for (OrderVO orderVO : orderVOS) {
+            System.out.println(orderVO);
         }
     }
 }

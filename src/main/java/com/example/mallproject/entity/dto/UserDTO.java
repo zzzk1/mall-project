@@ -1,17 +1,16 @@
 package com.example.mallproject.entity.dto;
 
-import com.example.mallproject.entity.Menu;
 import lombok.Data;
 
-import java.util.List;
+import java.io.Serializable;
 
+/**
+ * @author zzzk1
+ */
 @Data
-public class UserDTO {
+public class UserDTO implements Serializable {
     private String username;
-    private String nickname;
     private String password;
-    private String avatarUrl;
-    private String token;
-    private List<Menu> menus;
+    private String email;
     private String role;
 }

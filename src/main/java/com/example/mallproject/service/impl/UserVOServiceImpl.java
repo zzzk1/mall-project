@@ -1,14 +1,14 @@
 package com.example.mallproject.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.mallproject.entity.dto.UserDTO;
+import com.example.mallproject.entity.vo.UserVO;
 import com.example.mallproject.entity.Menu;
 import com.example.mallproject.entity.Role;
 import com.example.mallproject.entity.User;
 import com.example.mallproject.service.MenuService;
 import com.example.mallproject.service.RoleMenuService;
 import com.example.mallproject.service.RoleService;
-import com.example.mallproject.service.UserDTOService;
+import com.example.mallproject.service.UserVOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserDTOServiceImpl implements UserDTOService {
+public class UserVOServiceImpl implements UserVOService {
 
     @Autowired
     private RoleService roleService;
@@ -38,20 +38,20 @@ public class UserDTOServiceImpl implements UserDTOService {
     }
 
     @Override
-    public void setLoginUserInfo(User user, UserDTO userDTO, String token) {
-        userDTO.setUsername(user.getUsername());
-        userDTO.setNickname(user.getNickname());
-        userDTO.setPassword(null);
-        userDTO.setToken(token);
-        userDTO.setAvatarUrl(user.getAvatarUrl());
-        userDTO.setRole(user.getRole());
-        userDTO.setMenus(getAllMenu(userDTO.getRole()));
+    public void setLoginUserInfo(User user, UserVO userVO, String token) {
+        userVO.setUsername(user.getUsername());
+        userVO.setNickname(user.getNickname());
+        userVO.setEmail(user.getEmail());
+        userVO.setToken(token);
+        userVO.setAvatarUrl(user.getAvatarUrl());
+        userVO.setRole(user.getRole());
+        userVO.setMenus(getAllMenu(userVO.getRole()));
     }
 
     @Autowired
     private MenuService menuService;
     @Autowired
-    private UserDTOService userDtoService;
+    private UserVOService userDtoService;
     private List<Menu> getAllMenu(String role) {
         List<Integer> ids = userDtoService.getLoginUserMenuIds(role);
         List<Menu> menus = menuService.listByIds(ids);

@@ -2,7 +2,7 @@ package com.example.mallproject.mapper;
 
 import com.example.mallproject.entity.Order;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.mallproject.entity.dto.OrderDTO;
+import com.example.mallproject.entity.vo.OrderVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,5 +18,5 @@ import java.util.List;
  */
 @Mapper
 public interface OrderMapper extends BaseMapper<Order> {
-    List<OrderDTO> selectOrderDTO(@Param("spuIds") List<Long> spuIds,@Param("username") String username);
+    List<OrderVO> selectOrderDTO(@Param("spuIds") List<Long> spuIds, @Param("username") String username);
 }

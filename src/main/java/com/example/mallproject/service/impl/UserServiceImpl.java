@@ -1,12 +1,18 @@
 package com.example.mallproject.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.mallproject.common.utils.JwtTokenUtil;
+import com.example.mallproject.common.utils.ThreadLocalUtil;
+import com.example.mallproject.common.utils.ValidatorUtils;
 import com.example.mallproject.entity.dto.UserDTO;
+import com.example.mallproject.entity.vo.UserVO;
 import com.example.mallproject.entity.User;
 import com.example.mallproject.mapper.UserMapper;
 import com.example.mallproject.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.mallproject.service.UserVOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +31,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public Page<User> selectAll(int curr, int size, String name) {
-        Page<User> page = new Page<>(curr,size);
+        Page<User> page = new Page<>(curr,size, false);
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>().like("username", name);
         return userMapper.selectPage(page, queryWrapper);
     }
@@ -33,21 +39,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserVOService userVOService;
     @Override
-    public User login(UserDTO userDTO) {
+    public UserVO login(UserDTO userDTO) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", userDTO.getUsername());
+        queryWrapper.eq("email", userDTO.getEmail());
         queryWrapper.eq("password", userDTO.getPassword());
-        return userService.getOne(queryWrapper);
+        User loginUser = userService.getOne(queryWrapper);
+        ValidatorUtils.checkNull(loginUser, "loginUser");
+
+        String token = JwtTokenUtil.createToken(JSONObject.toJSONString(loginUser.getUsername()));
+        UserVO userVO = new UserVO();
+        userVOService.setLoginUserInfo(loginUser, userVO, token);
+
+        ThreadLocalUtil.put("userVO", userVO);
+        return userVO;
     }
 
     @Override
-    public User enroll(UserDTO userDTO) {
-        if (userService.getOne(new QueryWrapper<User>().eq("username", userDTO.getUsername())) != null) {
+    public User register(UserDTO userDTO) {
+        if (userService.getOne(new QueryWrapper<User>().eq("email", userDTO.getEmail())) != null) {
             return null;
         }
         User user = new User();
-        user.setUsername(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
+        user.setUsername(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
         user.setRole(userDTO.getRole());
         if (userService.save(user)) {

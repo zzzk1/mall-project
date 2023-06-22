@@ -1,8 +1,7 @@
 package com.example.mallproject;
 
 import com.example.mallproject.common.utils.RedisUtils;
-import com.example.mallproject.entity.User;
-import com.example.mallproject.entity.dto.UserDTO;
+import com.example.mallproject.entity.vo.UserVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,9 +19,8 @@ public class RedisTest {
 
     @Test
     public void set() {
-        UserDTO user = new UserDTO();
+        UserVO user = new UserVO();
         user.setUsername("admin");
-        user.setPassword("admin");
         redisUtils.set("user", String.valueOf(user));
     }
 

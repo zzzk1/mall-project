@@ -3,7 +3,7 @@ package com.example.mallproject.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.Order;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.mallproject.entity.dto.OrderDTO;
+import com.example.mallproject.entity.vo.OrderVO;
 
 /**
  * <p>
@@ -15,5 +15,5 @@ import com.example.mallproject.entity.dto.OrderDTO;
  */
 public interface OrderService extends IService<Order> {
     Page<Order> selectAll(int pageNum, int pageSize, String username);
-    Page<OrderDTO> getPageBySpuName(int pageNum, int pageSize, String spuName, String username);
+    Page<OrderVO> getPageBySpuName(int pageNum, int pageSize, String spuName, String username);
 }
