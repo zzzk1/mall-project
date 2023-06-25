@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class CodeGenerator {
     private  String projectPath = System.getProperty("user.dir");
     // 数据源配置
-    private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig.Builder("jdbc:mysql://localhost:3306/mall?serverTimezone=GMT%2B8", "root", "root")
+    private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig.Builder("jdbc:mysql://localhost:3306/blgmsg?serverTimezone=GMT%2B8", "root", "root")
             .typeConvert(new MySqlTypeConvert());
 
 
@@ -41,7 +41,7 @@ public class CodeGenerator {
                 })
                 //策略配置
                 .strategyConfig(builder -> {
-                    builder.addInclude("sys_user_comment") // 设置需要生成的表名
+                    builder.addInclude("sys_comment") // 设置需要生成的表名
                             .addTablePrefix("sys_")// 设置过滤表前缀
                             .serviceBuilder() //开启service策略配置
                             .formatServiceFileName("%sService") //取消Service前的I

@@ -9,10 +9,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -23,7 +19,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author zzzk1
- * @since 2023-06-17
+ * @since 2023-06-25
  */
 @Getter
 @Setter
@@ -36,18 +32,29 @@ public class Comment implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    private Long pid;
+    private String content;
 
-    private Integer level;
-    /**
-     * 评论内容
-     */
-    private String contact;
-
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime createTime;
 
+    private Integer likes;
+
+    /**
+     * 用户id
+     */
+    private Long userId;
+
+    /**
+     * 帖子id
+     */
+    private Long postId;
+
+    /**
+     * 回复对象
+     */
+    private Long toUserId;
+
+    private Long pid;
+
     @TableField(exist = false)
-    private List<Comment> children = new ArrayList<>();
+    private List<Comment> replies =  new ArrayList<>();
 }

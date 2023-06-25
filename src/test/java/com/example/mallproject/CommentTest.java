@@ -3,38 +3,20 @@ package com.example.mallproject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mallproject.entity.Comment;
 import com.example.mallproject.service.CommentService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+@Slf4j
 @SpringBootTest
 public class CommentTest {
     @Autowired
     private CommentService commentService;
 
     @Test
-    public void getList() {
-        commentService.getList(1L);
-    }
-
-    @Test
-    public void aad() {
-        Long userId = 1L;
-        Comment comment = new Comment();
-        comment.setId(999L);
-        comment.setContact("添加测试");
-        commentService.add(userId, comment);
-    }
-
-    @Test
-    public void delete() {
-        Long commentId = 104L;
-        commentService.delete(commentId);
-    }
-
-    @Test
-    public void page() {
-        Page<Comment> page = commentService.getPage(1,5);
-        System.out.println(page);
+    public void getPage() {
+        Page<Comment> commentPage = commentService.getComments(1, 10, 200);
+        System.out.println(commentPage);
     }
 }
