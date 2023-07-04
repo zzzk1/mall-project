@@ -1,6 +1,7 @@
 package com.system.design.service.impl;
 
 import com.system.design.entity.ManagerSystemNotice;
+import com.system.design.entity.dto.ManagerSystemNoticeDTO;
 import com.system.design.entity.vo.ManagerSystemNoticeVo;
 import com.system.design.mapper.ManagerSystemNoticeMapper;
 import com.system.design.service.ManagerSystemNoticeService;
@@ -29,7 +30,10 @@ public class ManagerSystemNoticeServiceImpl extends ServiceImpl<ManagerSystemNot
     }
 
     @Override
-    public ManagerSystemNoticeVo send2User(Long userId, String userType, LocalDateTime time) {
+    public ManagerSystemNoticeVo send2User(ManagerSystemNoticeDTO managerSystemNoticeDTO) {
+        Long userId = managerSystemNoticeDTO.getRecipientId();
+        String  userType = managerSystemNoticeDTO.getType();
+        LocalDateTime time = managerSystemNoticeDTO.getPublishTime();
         return managerSystemNoticeMapper.send2User(userId, userType, time);
     }
 }

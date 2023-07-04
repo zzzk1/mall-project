@@ -1,5 +1,6 @@
 package com.system.design;
 
+import com.system.design.entity.dto.ManagerSystemNoticeDTO;
 import com.system.design.service.ManagerSystemNoticeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,11 @@ public class ManagerSystemNoticeTest {
         LocalDateTime time = LocalDateTime.of(2023, 7,4, 16,29,29);
         String userType = "vip";
         Long userId = 2L;
-        System.out.println(managerSystemNoticeService.send2User(userId, userType, time));
+        ManagerSystemNoticeDTO managerSystemNoticeDTO = new ManagerSystemNoticeDTO();
+        managerSystemNoticeDTO.setRecipientId(userId);
+        managerSystemNoticeDTO.setType(userType);
+        managerSystemNoticeDTO.setPublishTime(time);
+        System.out.println(managerSystemNoticeService.send2User(managerSystemNoticeDTO));
     }
 
 }

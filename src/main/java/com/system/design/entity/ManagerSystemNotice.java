@@ -5,13 +5,15 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zzzk1
@@ -29,12 +31,12 @@ public class ManagerSystemNotice implements Serializable {
     private Long systemNoticeId;
 
     /**
-     * 标题	
+     * 标题
      */
     private String title;
 
     /**
-     * 内容	
+     * 内容
      */
     private String content;
 
@@ -44,7 +46,7 @@ public class ManagerSystemNotice implements Serializable {
     private String type;
 
     /**
-     * 是否已被拉取过，如果已经拉取过，就无需再次拉取	
+     * 是否已被拉取过，如果已经拉取过，就无需再次拉取
      */
     private Boolean state;
 
@@ -54,13 +56,14 @@ public class ManagerSystemNotice implements Serializable {
     private Long recipientId;
 
     /**
-     * 发布通知的管理员 ID	
+     * 发布通知的管理员 ID
      */
     private Long managerId;
 
     /**
-     * 发布时间	
+     * 发布时间
      */
+//    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime publishTime;
 
 

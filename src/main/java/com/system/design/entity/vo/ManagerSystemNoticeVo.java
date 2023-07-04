@@ -1,5 +1,6 @@
 package com.system.design.entity.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,5 +21,6 @@ public class ManagerSystemNoticeVo implements Serializable {
     /**
      * 发布时间
      */
+//    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime publishTime;
 }
