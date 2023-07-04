@@ -1,6 +1,7 @@
 package com.system.design.controller;
 
 
+import com.system.design.common.Result;
 import com.system.design.entity.dto.ManagerSystemNoticeDTO;
 import com.system.design.entity.vo.ManagerSystemNoticeVo;
 import com.system.design.service.ManagerSystemNoticeService;
@@ -24,15 +25,12 @@ public class ManagerSystemNoticeController {
     private ManagerSystemNoticeService managerSystemNoticeService;
 
     @GetMapping("/all")
-    public ManagerSystemNoticeVo send2AllUser(@RequestBody LocalDateTime time) {
-        if (time == null) {
-            time = LocalDateTime.now();
-        }
-        return managerSystemNoticeService.send2AllUser(time);
+    public Result<ManagerSystemNoticeVo> send2AllUser(@RequestBody LocalDateTime time) {
+        return Result.success(managerSystemNoticeService.send2AllUser(time));
     }
 
     @GetMapping("/single")
-    public ManagerSystemNoticeVo send2User(@RequestBody ManagerSystemNoticeDTO managerSystemNoticeDTO) {
-        return managerSystemNoticeService.send2User(managerSystemNoticeDTO);
+    public Result<ManagerSystemNoticeVo> send2User(@RequestBody ManagerSystemNoticeDTO managerSystemNoticeDTO) {
+        return Result.success(managerSystemNoticeService.send2User(managerSystemNoticeDTO));
     }
 }
