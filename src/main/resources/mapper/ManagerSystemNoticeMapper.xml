@@ -1,45 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.system.design.mapper.ManagerSystemNoticeMapper">
+    <update id="updateState" parameterType="java.util.List">
+        update t_manager_system_notice
+        SET state = 1
+        WHERE system_notice_id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">#{id}
+        </foreach>
+    </update>
 
-    <select id="send2AllUser" resultType="com.system.design.entity.vo.ManagerSystemNoticeVo">
+    <select id="send2User" resultType="map">
         SELECT
+        system_notice_id,
         title,
         content,
         publish_time
         FROM
         t_manager_system_notice
-        WHERE
-        TIMESTAMP (publish_time) = #{time}
-        AND system_notice_id IN (
-        SELECT
-        system_notice_id
-        FROM
-        t_user_system_notice
-        WHERE
+        WHERE recipient_id = #{recipient_id}
+        AND
         state = 0
-        AND recipient_id = 0
-        )
+        AND
+        TIMESTAMP (publish_time) &lt;= #{publish_time}
+<!--        AND-->
+<!--        system_notice_id = (-->
+<!--        SELECT-->
+<!--        system_notice_id-->
+<!--        FROM-->
+<!--        t_user_system_notice-->
+<!--        WHERE-->
+<!--        state = 0-->
+<!--        AND recipient_id = #{recipient_id})-->
     </select>
-    <select id="send2User" resultType="com.system.design.entity.vo.ManagerSystemNoticeVo">
+    <select id="send2AllUser" resultType="map">
         SELECT
+        system_notice_id,
         title,
         content,
         publish_time
         FROM
         t_manager_system_notice
-        WHERE
-        type = #{type}
+        WHERE recipient_id = 0
         AND
-        TIMESTAMP (publish_time) = #{publish_time}
-        AND
-        system_notice_id = (
-        SELECT
-        system_notice_id
-        FROM
-        t_user_system_notice
-        WHERE
         state = 0
-        AND recipient_id = 2)
+        AND
+        TIMESTAMP (publish_time) &lt;= #{publish_time}
     </select>
 </mapper>

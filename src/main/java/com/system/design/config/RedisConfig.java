@@ -41,7 +41,6 @@ public class RedisConfig extends CachingConfigurerSupport {
         // redis-value采用json序列化， json的体积小，可读性高，不需要实现serializer接口。
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(serializer);
-
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashValueSerializer(serializer);
 
@@ -54,9 +53,9 @@ public class RedisConfig extends CachingConfigurerSupport {
         //创建JSON序列化器
         Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+//        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
 
-        // objectMapper.enableDefaultTyping()被弃用
+//         objectMapper.enableDefaultTyping()被弃用
         objectMapper.activateDefaultTyping(
                 LaissezFaireSubTypeValidator.instance,
                 ObjectMapper.DefaultTyping.NON_FINAL,

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Data
 public class ManagerSystemNoticeDTO implements Serializable {
     /**
-     * 发给哪些用户：单用户 single；全体用户 all，vip 用户
+     * 发给哪些用户：单用户 single；全体用户 all
      */
     private String type;
     /**

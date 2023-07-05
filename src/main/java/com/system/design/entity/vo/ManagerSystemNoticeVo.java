@@ -12,6 +12,11 @@ import java.time.LocalDateTime;
 
 @Data
 public class ManagerSystemNoticeVo implements Serializable {
+    private Long systemNoticeId;
+    /**
+     * 接受通知的用户的 ID，如果 type 为单用户，那么 recipient 为该用户的 ID;否则 recipient 为 0
+     */
+    private Long recipientId;
     /**
      * 标题
      */
@@ -29,4 +34,8 @@ public class ManagerSystemNoticeVo implements Serializable {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime publishTime;
+
+    public LocalDateTime getPublishTime() {
+        return publishTime;
+    }
 }

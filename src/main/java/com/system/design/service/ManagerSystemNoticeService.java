@@ -4,9 +4,10 @@ import com.system.design.entity.ManagerSystemNotice;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.system.design.entity.dto.ManagerSystemNoticeDTO;
 import com.system.design.entity.vo.ManagerSystemNoticeVo;
-import org.apache.ibatis.annotations.Param;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 /**
  * <p>
@@ -17,6 +18,8 @@ import java.time.LocalDateTime;
  * @since 2023-07-04
  */
 public interface ManagerSystemNoticeService extends IService<ManagerSystemNotice> {
-    ManagerSystemNoticeVo send2AllUser(LocalDateTime time);
-    ManagerSystemNoticeVo send2User(ManagerSystemNoticeDTO managerSystemNoticeDTO);
+
+    Map<Long, ManagerSystemNoticeVo> send2User(Long userId, LocalDateTime time);
+
+    Map<Long, ManagerSystemNoticeVo> send2AllUser(LocalDateTime time);
 }

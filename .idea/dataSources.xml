@@ -8,13 +8,6 @@
       <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="@192.168.80.128" uuid="68d3e722-a9d1-463f-97eb-47b6ac4a43a4">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://192.168.80.128:3306</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="0@192.168.80.128" uuid="9ac02b80-d50e-4a85-867d-24a7a01939a4">
       <driver-ref>redis</driver-ref>
       <synchronize>true</synchronize>
