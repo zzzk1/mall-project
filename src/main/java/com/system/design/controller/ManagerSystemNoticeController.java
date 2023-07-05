@@ -1,7 +1,7 @@
 package com.system.design.controller;
 
 
-import com.system.design.common.Result;
+import com.system.design.common.api.Result;
 import com.system.design.entity.dto.ManagerSystemNoticeDTO;
 import com.system.design.entity.vo.ManagerSystemNoticeVo;
 import com.system.design.service.ManagerSystemNoticeService;

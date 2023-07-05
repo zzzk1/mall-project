@@ -1,4 +1,4 @@
-package com.system.design.common;
+package com.system.design.common.api;
 
 import lombok.Getter;
 import lombok.Setter;
