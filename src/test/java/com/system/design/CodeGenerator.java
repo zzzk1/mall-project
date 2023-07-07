@@ -41,7 +41,7 @@ public class CodeGenerator {
                 })
                 //策略配置
                 .strategyConfig(builder -> {
-                    builder.addInclude("t_user") // 设置需要生成的表名
+                    builder.addInclude("t_post") // 设置需要生成的表名
                             .addTablePrefix("t_")// 设置过滤表前缀
                             .serviceBuilder() //开启service策略配置
                             .formatServiceFileName("%sService") //取消Service前的I

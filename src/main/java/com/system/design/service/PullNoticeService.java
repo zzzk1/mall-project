@@ -24,7 +24,6 @@ public class PullNoticeService {
         managerSystemNoticeService.send2AllUser(now);
     }
 
-
     public void pullSingleUserMsg() {
         LocalDateTime now = LocalDateTime.now();
         log.info(String.valueOf(now));
