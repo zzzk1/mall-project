@@ -1,7 +1,7 @@
 package com.system.design.mapper;
 
+import com.system.design.entity.Log;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.system.design.entity.UserLogDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author zzzk1
- * @since 2023-07-07
+ * @since 2023-07-11
  */
 @Mapper
-public interface UserLogMapper extends BaseMapper<UserLogDO> {
+public interface LogMapper extends BaseMapper<Log> {
 
 }

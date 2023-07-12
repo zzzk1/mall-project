@@ -12,12 +12,18 @@
     <groupId>com.example</groupId>
     <artifactId>system-design</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>mall-project</name>
-    <description>mall-project</description>
+    <name>system-design</name>
+    <description>system-design</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!--注解所需依赖-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.1</version>
+        </dependency>
 
         <!--fastjson不支持java8的LocalDateTime的序列化-->
         <dependency>

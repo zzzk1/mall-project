@@ -16,6 +16,7 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         User user = new User();
         user.setUserId(1L);
+        user.setNickName("admin");
         ThreadLocalUtil.put("userInfo", user);
         return super.preHandle(request, response, handler);
     }
