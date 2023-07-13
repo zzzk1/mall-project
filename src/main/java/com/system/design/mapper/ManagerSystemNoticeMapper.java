@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +23,6 @@ import java.util.Map;
 
 @Mapper
 public interface ManagerSystemNoticeMapper extends BaseMapper<ManagerSystemNotice> {
-    @MapKey("system_notice_id")
-    Map<Long, ManagerSystemNoticeVo> send2User(@Param("recipient_id") Long userId, @Param("publish_time") LocalDateTime time);
-    @MapKey("system_notice_id")
-    Map<Long, ManagerSystemNoticeVo> send2AllUser(@Param("publish_time") LocalDateTime time);
+    List<ManagerSystemNoticeVo> getMessage(@Param("publish_time")Date now, @Param("recipient_id") Long userId);
     boolean updateState(@Param("ids") List<Long> ids);
 }

@@ -12,10 +12,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -34,32 +32,13 @@ public class ManagerSystemNoticeServiceImpl extends ServiceImpl<ManagerSystemNot
     @Resource
     private RedisUtil redisUtil;
 
-    @Cacheable(cacheNames = "single-user-msg", key = "'userId-' + #userId")
-    @Override
-    public Map<Long, ManagerSystemNoticeVo> send2User(Long userId, LocalDateTime time) {
-        Map<Long, ManagerSystemNoticeVo> info;
-        info = managerSystemNoticeMapper.send2User(userId, time);
-        return info;
-    }
-
-    @Cacheable(cacheNames = "all-user-msg", key = "'push-' + #time", unless="#result == null")
-    @Override
-    public Map<Long, ManagerSystemNoticeVo> send2AllUser(LocalDateTime time) {
-        Map<Long, ManagerSystemNoticeVo> info;
-        info = managerSystemNoticeMapper.send2AllUser(time);
-        if (info.size() == 0) {
-            log.info(String.valueOf(time));
-            log.info("暂时没有新的发送给全体的消息");
-            return null;
-        }
-        List<Long> ids = new ArrayList<>(info.size());
-        ids.addAll(info.keySet());
-
-        updateStatus(ids);
-        return info;
-    }
-
     public boolean updateStatus(List<Long> noticeIds) {
         return managerSystemNoticeMapper.updateState(noticeIds);
+    }
+
+    @Cacheable(cacheNames = "message-single", key = "'userId:' + #userId")
+    @Override
+    public List<ManagerSystemNoticeVo> getMessage(Date now, Long userId) {
+        return managerSystemNoticeMapper.getMessage(now, userId);
     }
 }

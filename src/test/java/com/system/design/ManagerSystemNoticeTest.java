@@ -8,8 +8,11 @@ import com.system.design.service.ManagerSystemNoticeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,23 +20,24 @@ import java.util.Map;
 public class ManagerSystemNoticeTest {
     @Autowired
     private ManagerSystemNoticeService managerSystemNoticeService;
-
+    @Autowired
+    private RedisTemplate redisTemplate;
     @Test
     public void send2AllUser() throws Exception {
         LocalDateTime time = LocalDateTime.of(2023, 7,4, 16,27,13);
-        Map<Long, ManagerSystemNoticeVo> messages = managerSystemNoticeService.send2AllUser(time);
-    }
-
-    @Test
-    public void send2user() {
-        LocalDateTime time = LocalDateTime.of(2023, 7,4, 16,29,29);
-        String userType = "single";
-        Long userId = 2L;
-        Map<Long, ManagerSystemNoticeVo> messages = managerSystemNoticeService.send2User(userId, time);
     }
 
     @Autowired
     private ManagerSystemNoticeMapper managerSystemNoticeMapper;
+    @Test
+    public void getMessage() {
+        Date time = new Date();
+        String userType = "single";
+        Long userId = 1L;
+        managerSystemNoticeService.getMessage(time, userId);
+        System.out.println(redisTemplate.opsForValue().get("userId:1"));
+    }
+
     @Test
     public void update() {
         List<Long> ids = new ArrayList<>();

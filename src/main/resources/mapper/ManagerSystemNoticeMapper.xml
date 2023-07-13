@@ -9,38 +9,13 @@
         </foreach>
     </update>
 
-    <select id="send2User" resultType="map">
+    <select id="getMessage" resultType="com.system.design.entity.vo.ManagerSystemNoticeVo">
         SELECT
-        system_notice_id,
-        title,
-        content,
-        publish_time
+        system_notice_id, title, content, publish_time
         FROM
         t_manager_system_notice
-        WHERE recipient_id = #{recipient_id}
-        AND
-        state = 0
-        AND
-        TIMESTAMP (publish_time) &lt;= #{publish_time}
-<!--        AND-->
-<!--        system_notice_id = (-->
-<!--        SELECT-->
-<!--        system_notice_id-->
-<!--        FROM-->
-<!--        t_user_system_notice-->
-<!--        WHERE-->
-<!--        state = 0-->
-<!--        AND recipient_id = #{recipient_id})-->
-    </select>
-    <select id="send2AllUser" resultType="map">
-        SELECT
-        system_notice_id,
-        title,
-        content,
-        publish_time
-        FROM
-        t_manager_system_notice
-        WHERE recipient_id = 0
+        WHERE
+        recipient_id = #{recipient_id}
         AND
         state = 0
         AND
